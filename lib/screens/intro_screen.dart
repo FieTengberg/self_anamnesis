@@ -13,7 +13,7 @@ class IntroScreen extends StatelessWidget {
           children: [
             // Large square for text
             Container(
-              width: 300, // Adjust size as needed
+              width: 600, // Adjust size as needed
               height: 200, // Adjust size as needed
               decoration:
                   BoxDecoration(border: Border.all(color: Colors.black)),
