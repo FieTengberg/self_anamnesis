@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'log_ind_screen.dart';
+import 'package:flutter_application_test/screens/intro_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -65,7 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      //_counter++;
+      Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => IntroScreen()),
+            );
     });
   }
 
