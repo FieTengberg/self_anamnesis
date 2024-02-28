@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'log_ind_screen.dart';
 
 void main() {
   runApp(const MyApp());
