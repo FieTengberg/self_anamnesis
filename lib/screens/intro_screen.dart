@@ -22,6 +22,7 @@ class IntroScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(30.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Hej Jan!',
@@ -36,8 +37,20 @@ class IntroScreen extends StatelessWidget {
                 ),
               ),
             ),
+
             SizedBox(height: 30), // Spacer
+
+            Center(
+              // Wrap the text with Center widget
+              child: Text(
+                'Tryk på knappen for at starte', // Add your additional text here
+                style: TextStyle(fontSize: 12),
+              ),
+            ),
             // Pressable button
+
+            SizedBox(height: 15), // Spacer
+
             ElevatedButton(
               onPressed: () {
                 // Handle button press
