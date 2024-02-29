@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RecordScreen extends StatelessWidget {
+class RecordScreen extends StatefulWidget {
+  @override
+  _RecordScreenState createState() => _RecordScreenState();
+}
+
+class _RecordScreenState extends State<RecordScreen> {
+  bool isRecording = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,66 +39,100 @@ class RecordScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black),
               ),
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Green square for play symbol
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            // Handle play button press
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 100,
-                            color: Colors.green,
-                            child: Icon(
-                              Icons.play_arrow,
-                              size: 60,
-                              color: Colors.white,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Green square for play symbol
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: isRecording
+                                  ? null // Disable onTap when recording
+                                  : () {
+                                      setState(() {
+                                        isRecording = true;
+                                      });
+                                    },
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                color: isRecording
+                                    ? Colors.green.withOpacity(0.5)
+                                    : Colors.green,
+                                child: Icon(
+                                  Icons.play_arrow,
+                                  size: 60,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
-                          ),
+                            SizedBox(height: 5), // Spacer
+                            Text(
+                              'Start',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: isRecording ? Colors.grey : Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 5), // Spacer
-                        Text(
-                          'Start',
-                          style: TextStyle(fontSize: 18, color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ),
 
-                  // Red square for stop button
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            // Handle stop button press
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 100,
-                            color: Colors.red,
-                            child: Icon(
-                              Icons.stop,
-                              size: 60,
-                              color: Colors.white,
+                      // Red square for stop button
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: !isRecording
+                                  ? null // Disable onTap when not recording
+                                  : () {
+                                      setState(() {
+                                        isRecording = false;
+                                      });
+                                    },
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                color: isRecording
+                                    ? Colors.red
+                                    : Colors.red.withOpacity(0.5),
+                                child: Icon(
+                                  Icons.stop,
+                                  size: 60,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
-                          ),
+                            SizedBox(height: 5), // Spacer
+                            Text(
+                              'Stop',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: isRecording ? Colors.black : Colors.grey,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 5), // Spacer
-                        Text(
-                          'Stop',
-                          style: TextStyle(fontSize: 18, color: Colors.grey),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                  if (isRecording) // Show message only when recording is in progress
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Optagelsen er igang', // Your message here
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black, // Customize the color as needed
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
