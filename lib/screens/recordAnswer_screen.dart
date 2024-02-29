@@ -33,7 +33,7 @@ class RecordScreen extends StatelessWidget {
                 border: Border.all(color: Colors.black),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Green square for play symbol
                   Expanded(
@@ -113,7 +113,9 @@ class RecordScreen extends StatelessWidget {
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                   ),
                 ),
+
                 SizedBox(width: 20), // Spacer between progress bar and text
+
                 // Text displaying progress
                 Text(
                   'Du har svaret på 5 ud af 10 spørgsmål', // Change this text dynamically based on user's progress
