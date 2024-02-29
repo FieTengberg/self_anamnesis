@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 
 class IntroScreen extends StatelessWidget {
   @override
@@ -13,8 +14,8 @@ class IntroScreen extends StatelessWidget {
           children: [
             // Large square for text
             Container(
-              width: 600, // Adjust size as needed
-              height: 300, // Adjust size as needed
+              width: 600,
+              height: 300,
               decoration:
                   BoxDecoration(border: Border.all(color: Colors.black)),
               alignment: Alignment.center,
@@ -28,7 +29,7 @@ class IntroScreen extends StatelessWidget {
                       'Hej Jan!',
                       style: TextStyle(fontSize: 20),
                     ),
-                    SizedBox(height: 10), // Add some space between sections
+                    SizedBox(height: 10), // space between sections
                     Text(
                       'For at hjælpe din fysioterapeut med at målrette din behandlingsindsats, skal vi have dig til at besvare nogle spørgsmål omhandlende din problematik og grunden til at du er her.',
                       style: TextStyle(fontSize: 20),
@@ -43,8 +44,8 @@ class IntroScreen extends StatelessWidget {
             Center(
               // Wrap the text with Center widget
               child: Text(
-                'Tryk på knappen for at starte', // Add your additional text here
-                style: TextStyle(fontSize: 12),
+                'Tryk på knappen for at starte',
+                style: TextStyle(fontSize: 14),
               ),
             ),
             // Pressable button
@@ -54,6 +55,10 @@ class IntroScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Handle button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RecordScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
