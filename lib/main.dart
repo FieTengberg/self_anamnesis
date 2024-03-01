@@ -39,14 +39,17 @@ class _LogInScreenState extends State<LogInScreen> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(200.0),
-          child: Column(
-           //crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Container(
+            width: 400.0,
+            height: 300.0,
+            alignment: Alignment.bottomCenter, // Align content to the bottom
+            child: Column(
             children: [
+              
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Indtast dit CPR nummer',
+      
                 ),
               ),
               const SizedBox(height: 30), // Adding space between TextField and Button
