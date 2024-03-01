@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 
 class RecordScreen extends StatefulWidget {
   @override
@@ -95,6 +96,13 @@ class _RecordScreenState extends State<RecordScreen> {
                                       setState(() {
                                         isRecording = false;
                                       });
+                                      // Navigate to the other screen
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SaveOrRepeatScreen()),
+                                      );
                                     },
                               child: Container(
                                 width: 100,
