@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 
 class SaveOrRepeatScreen extends StatelessWidget {
   @override
@@ -79,7 +80,11 @@ class SaveOrRepeatScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 // Functionality for saving the recording
-                                // For now, leaving it empty
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FinishScreen()),
+                                );
                               },
                               child: Container(
                                 width: 100,

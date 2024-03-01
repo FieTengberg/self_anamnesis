@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 
 class IntroScreen extends StatelessWidget {
