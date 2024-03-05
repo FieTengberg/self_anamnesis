@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
+import 'package:flutter_application_test/screens/askQuestion_screen.dart';
 
 class IntroScreen extends StatelessWidget {
   @override
@@ -57,7 +58,7 @@ class IntroScreen extends StatelessWidget {
                 // Handle button press
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RecordScreen()),
+                  MaterialPageRoute(builder: (context) => AskQuestionScreen()),
                 );
               },
               style: ElevatedButton.styleFrom(
