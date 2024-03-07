@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/NLP_models/ElevenLabTTS.dart';
+import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/screens/askQuestion_screen.dart';
+
 
 class IntroScreen extends StatelessWidget {
   @override
@@ -54,8 +57,10 @@ class IntroScreen extends StatelessWidget {
             SizedBox(height: 15), // Spacer
 
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // Handle button press
+                // Make the text-to-speech request
+                await makeTextToSpeechRequest();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AskQuestionScreen()),

@@ -1,13 +1,19 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/intro_screen.dart';
+import 'NLP_models/ElevenLabTTS.dart';
+import 'package:logging/logging.dart';
 
-void main() {
+
+
+void main() async{
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key});
-
+ 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
