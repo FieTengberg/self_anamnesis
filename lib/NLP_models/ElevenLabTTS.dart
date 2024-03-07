@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:just_audio_libwinmedia/just_audio_libwinmedia.dart';
 
-
-
 final player = AudioPlayer(); //audio player obj that will play audio
+
 // Feed your own stream of bytes into the player
 class MyCustomSource extends StreamAudioSource {
   final List<int> bytes;
@@ -26,36 +25,35 @@ class MyCustomSource extends StreamAudioSource {
     );
   }
 }
-Future<void> makeTextToSpeechRequest() async {
-  
-  const key = "50c3b39252b5ddfc0816eea3d64641f5";
-  String url = 'https://api.elevenlabs.io/v1/text-to-speech/29vD33N1CtxCmqQRPOHJ';
-  
-final response = await http.post(
-      Uri.parse(url),
-      headers: {
-        'accept': 'audio/mpeg',
-        'xi-api-key': key,
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({
-        "text": "Hi. How are you doing?",
-        "model_id": "eleven_monolingual_v1",
-        "voice_settings": {"stability": .15, "similarity_boost": .75}
-      }),
-    );
-  if (response.statusCode == 200) {
-    print('Text to speech request successful YAY');
-    
-    final bytes = response.bodyBytes; //get the bytes ElevenLabs sent back
-      await player.setAudioSource(MyCustomSource(
-          bytes)); //send the bytes to be read from the JustAudio library
-      player.play(); //play the audio
-    // Request was successful
-    
 
+Future<void> makeTextToSpeechRequest() async {
+  const key = "50c3b39252b5ddfc0816eea3d64641f5";
+  String url =
+      'https://api.elevenlabs.io/v1/text-to-speech/29vD33N1CtxCmqQRPOHJ';
+
+  final response = await http.post(
+    Uri.parse(url),
+    headers: {
+      'accept': 'audio/mpeg',
+      'xi-api-key': key,
+      'Content-Type': 'application/json',
+    },
+    body: json.encode({
+      "text": "Hi, how are you?",
+      "model_id": "eleven_monolingual_v1",
+      "voice_settings": {"stability": .15, "similarity_boost": .75}
+    }),
+  );
+  if (response.statusCode == 200) {
+    print('YAY: Text to speech request successful');
+
+    final bytes = response.bodyBytes; //get the bytes ElevenLabs sent back
+    await player.setAudioSource(MyCustomSource(
+        bytes)); //send the bytes to be read from the JustAudio library
+    player.play(); //play the audio
+    // Request was successful
   } else {
     // Request failed
-    print('Error: ${response.statusCode} træls');
+    print('ØV: Error: ${response.statusCode}');
   }
 }
