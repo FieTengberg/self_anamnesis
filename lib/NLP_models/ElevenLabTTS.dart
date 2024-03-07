@@ -1,6 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:just_audio/just_audio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:just_audio_libwinmedia/just_audio_libwinmedia.dart';
+
 
 
 final player = AudioPlayer(); //audio player obj that will play audio
@@ -25,7 +29,7 @@ class MyCustomSource extends StreamAudioSource {
 Future<void> makeTextToSpeechRequest() async {
   
   const key = "50c3b39252b5ddfc0816eea3d64641f5";
-  String url = 'https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM';
+  String url = 'https://api.elevenlabs.io/v1/text-to-speech/29vD33N1CtxCmqQRPOHJ';
   
 final response = await http.post(
       Uri.parse(url),
@@ -35,7 +39,7 @@ final response = await http.post(
         'Content-Type': 'application/json',
       },
       body: json.encode({
-        "text": "Hej med dig",
+        "text": "Hi. How are you doing?",
         "model_id": "eleven_monolingual_v1",
         "voice_settings": {"stability": .15, "similarity_boost": .75}
       }),

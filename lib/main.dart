@@ -5,7 +5,7 @@ import 'package:flutter_application_test/screens/intro_screen.dart';
 import 'NLP_models/ElevenLabTTS.dart';
 import 'package:logging/logging.dart';
 
-final _logger = Logger('main');
+
 
 void main() async{
   runApp(const MyApp());
