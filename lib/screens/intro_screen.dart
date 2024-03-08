@@ -4,7 +4,6 @@ import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/screens/askQuestion_screen.dart';
 
-
 class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -60,7 +59,9 @@ class IntroScreen extends StatelessWidget {
               onPressed: () async {
                 // Handle button press
                 // Make the text-to-speech request
-                await makeTextToSpeechRequest();
+                TextToSpeechState textProvider = TextToSpeechState();
+                textProvider.locateIndexInJsonFile(0);
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AskQuestionScreen()),
