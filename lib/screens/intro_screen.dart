@@ -64,7 +64,7 @@ class IntroScreen extends StatelessWidget {
 
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AskQuestionScreen()),
+                  MaterialPageRoute(builder: (context) => RecordScreen()),
                 );
               },
               style: ElevatedButton.styleFrom(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
+import 'package:flutter_application_test/NLP_models/ElevenLabTTS.dart';
+
 
 class SaveOrRepeatScreen extends StatelessWidget {
   @override
@@ -79,6 +81,9 @@ class SaveOrRepeatScreen extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
+                                // Make the text-to-speech request
+                              TextToSpeechState textProvider = TextToSpeechState();
+                              textProvider.locateIndexInJsonFile(0);
                                 // Functionality for saving the recording
                                 Navigator.push(
                                   context,

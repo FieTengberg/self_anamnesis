@@ -2,15 +2,15 @@
     "tts_data": [
       {
         "index": "0",
-        "text": "Hej Jan"
+        "text": "Hej Jan. For at hjælpe din fysioterapeut med at målrette din behandlingsindsats, skal vi have dig til at besvare nogle spørgsmål omhandlende din problematik og grunden til at du er her."
       },
       {
         "index": "1",
-        "text": "For at hjælpe din fysioterapeut"
+        "text": "Hvor intense er dine smerter på en skala fra 1 til 10. 1 er ingen smerte og 10 er den værst tænkelige smerte, som du kan forestille dig."
       },
       {
         "index": "2",
-        "text": "Hvor intense er dine smerter på en skala fra 1 til 10?"
+        "text": "Tak, Jan! Dine svar bliver nu sendt videre til din fysioterapeut, som vil læse det igennem, inden du kaldes ind til videre undersøgelse og tests. I mellemtiden kan du finde dig til rette i venteværelset med et magasin og en kop te eller kaffe."
       }
       
     ]

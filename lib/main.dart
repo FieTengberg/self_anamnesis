@@ -60,7 +60,12 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
               const SizedBox(height: 30), // Adding space between TextField and Button
               ElevatedButton(
-                onPressed: () {
+                
+                  onPressed: () async {
+                // Handle button press
+                // Make the text-to-speech request
+                TextToSpeechState textProvider = TextToSpeechState();
+                textProvider.locateIndexInJsonFile(0);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => IntroScreen()),
