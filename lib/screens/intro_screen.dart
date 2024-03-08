@@ -60,7 +60,7 @@ class IntroScreen extends StatelessWidget {
                 // Handle button press
                 // Make the text-to-speech request
                 TextToSpeechState textProvider = TextToSpeechState();
-                textProvider.locateIndexInJsonFile(0);
+                textProvider.locateIndexInJsonFile(1);
 
                 Navigator.push(
                   context,

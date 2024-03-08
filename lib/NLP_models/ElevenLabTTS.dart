@@ -34,15 +34,13 @@ class TextToSpeech extends StatefulWidget {
 }
 
 class TextToSpeechState extends State<TextToSpeech> {
-  List _items = [];
-
   Future<void> locateIndexInJsonFile(int index) async {
     final String response = await rootBundle.loadString('assets/tts_data.json');
     final data = await json.decode(response);
-    makeTextToSpeechRequest("Hej Jan");
-    setState(() {
-      _items = data["tts_data"];
-    });
+    String text =
+        data["tts_data"][index]["text"]; // Fetch the text based on index
+    makeTextToSpeechRequest(
+        text); // Pass the fetched text to makeTextToSpeechRequest
   }
 
   @override
