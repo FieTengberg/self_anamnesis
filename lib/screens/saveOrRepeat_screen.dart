@@ -83,7 +83,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
                               onTap: () {
                                 // Make the text-to-speech request
                               TextToSpeechState textProvider = TextToSpeechState();
-                              textProvider.locateIndexInJsonFile(0);
+                              textProvider.locateIndexInJsonFile(2);
                                 // Functionality for saving the recording
                                 Navigator.push(
                                   context,
