@@ -5,15 +5,13 @@ import 'package:flutter_application_test/screens/intro_screen.dart';
 import 'NLP_models/ElevenLabTTS.dart';
 import 'package:logging/logging.dart';
 
-
-
-void main() async{
+void main() async {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key});
- 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,27 +43,25 @@ class _LogInScreenState extends State<LogInScreen> {
         title: Text(widget.title),
       ),
       body: Center(
-          child: Container(
-            width: 400.0,
-            height: 300.0,
-            alignment: Alignment.bottomCenter, // Align content to the bottom
-            child: Column(
+        child: Container(
+          width: 400.0,
+          height: 300.0,
+          alignment: Alignment.bottomCenter, // Align content to the bottom
+          child: Column(
             children: [
-              
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Indtast dit CPR nummer',
-      
                 ),
               ),
-              const SizedBox(height: 30), // Adding space between TextField and Button
+              const SizedBox(
+                  height: 30), // Adding space between TextField and Button
               ElevatedButton(
-                
-                  onPressed: () async {
-                // Handle button press
-                // Make the text-to-speech request
-                TextToSpeechState textProvider = TextToSpeechState();
-                textProvider.locateIndexInJsonFile(0);
+                onPressed: () async {
+                  // Handle button press
+                  // Make the text-to-speech request
+                  //TextToSpeechState textProvider = TextToSpeechState();
+                  //textProvider.locateIndexInJsonFile(0);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => IntroScreen()),

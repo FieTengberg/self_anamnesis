@@ -39,6 +39,7 @@ dependencies:
   just_audio: ^0.9.36
   just_audio_libwinmedia: 0.0.4+1
   flutter_dotenv: ^5.0.2
+  audioplayers: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +59,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/tts_data.json
+    - assets/audio_files/intro1.mp3
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

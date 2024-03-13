@@ -3,8 +3,27 @@ import 'package:flutter_application_test/NLP_models/ElevenLabTTS.dart';
 import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/screens/askQuestion_screen.dart';
+import 'package:just_audio/just_audio.dart';
 
-class IntroScreen extends StatelessWidget {
+class IntroScreen extends StatefulWidget {
+  @override
+  _IntroScreenState createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
+  final AudioPlayer player = AudioPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    playAudio();
+  }
+
+  Future<void> playAudio() async {
+    await player.setAsset('audio_files/intro1.mp3');
+    await player.play();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
