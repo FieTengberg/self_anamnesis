@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/NLP_models/ElevenLabTTS.dart';
+import 'package:flutter_application_test/screens/intro_screen.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 
 class SaveOrRepeatScreen extends StatelessWidget {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,15 +85,22 @@ class SaveOrRepeatScreen extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                // Make the text-to-speech request
-                              TextToSpeechState textProvider = TextToSpeechState();
-                              textProvider.locateIndexInJsonFile(2);
+                              // Make the text-to-speech request
+                              //TextToSpeechState textProvider = TextToSpeechState();
+                              //textProvider.locateIndexInJsonFile(2);
+                             
                                 // Functionality for saving the recording
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => FinishScreen()),
                                 );
+                                 //get recording _VIRKER IKKE!!!!
+                              late AudioPlayer audioPlayer;
+                              IntroScreenState askQuestion = IntroScreenState();
+                              audioPlayer = AudioPlayer();
+                              askQuestion.playAudio('audio_files/finalMessage.mp3');
+                              
                               },
                               child: Container(
                                 width: 100,

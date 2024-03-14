@@ -1,29 +1,40 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/NLP_models/ElevenLabTTS.dart';
 import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/screens/askQuestion_screen.dart';
-import 'package:just_audio/just_audio.dart';
+//import 'package:just_audio/just_audio.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
+//import 'package:audioplayers/audio_cache.dart';
+
+
+
 
 class IntroScreen extends StatefulWidget {
   @override
-  _IntroScreenState createState() => _IntroScreenState();
+  IntroScreenState createState() => IntroScreenState();
 }
 
-class _IntroScreenState extends State<IntroScreen> {
-  final AudioPlayer player = AudioPlayer();
+class IntroScreenState extends State<IntroScreen> {
+  Future<void> playAudio(path) async {
+    await audioPlayer.play(AssetSource(path));
+  }
+
+  late AudioPlayer audioPlayer;
+ 
+
 
   @override
   void initState() {
     super.initState();
-    playAudio();
+    audioPlayer = AudioPlayer();
+    playAudio('audio_files/intro1.mp3');
   }
 
-  Future<void> playAudio() async {
-    await player.setAsset('audio_files/intro1.mp3');
-    await player.play();
-  }
-
+    
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,8 +89,10 @@ class _IntroScreenState extends State<IntroScreen> {
               onPressed: () async {
                 // Handle button press
                 // Make the text-to-speech request
-                TextToSpeechState textProvider = TextToSpeechState();
-                textProvider.locateIndexInJsonFile(1);
+                //TextToSpeechState textProvider = TextToSpeechState();
+                //textProvider.locateIndexInJsonFile(1);
+                //get recording
+                playAudio('audio_files/question1.mp3');
 
                 Navigator.push(
                   context,

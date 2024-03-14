@@ -10,7 +10,7 @@ headers = {
 }
 
 data = {
-  "text": "Hej Jan. For at hjælpe din fysioterapeut med at målrette din behandlingsindsats, skal vi have dig til at besvare nogle spørgsmål omhandlende din problematik og grunden til at du er her",
+  "text": "Tak! Dine svar bliver nu sendt videre til din fysioterapeut, som vil læse det igennem, inden du kaldes ind til videre undersøgelse og tests. I mellemtiden kan du finde dig til rette i venteværelset med et magasin og en kop te eller kaffe.",
   "model_id": "eleven_multilingual_v2",
   "voice_settings": {
     "stability": 0.5,

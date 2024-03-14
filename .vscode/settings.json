@@ -1,4 +1,7 @@
 {
   "cmake.configureOnOpen": true,
-  "cmake.sourceDirectory": "C:/Users/alona/OneDrive/Dokumenter/GitHub/self_anamnesis/windows/runner"
+  "cmake.sourceDirectory": "C:/Users/alona/OneDrive/Dokumenter/GitHub/self_anamnesis/windows/runner",
+  "cSpell.words": [
+    "audioplayers"
+  ]
 }
