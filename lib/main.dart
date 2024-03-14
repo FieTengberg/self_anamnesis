@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/intro_screen.dart';
 import 'NLP_models/ElevenLabTTS.dart';
 import 'package:logging/logging.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+
 
 void main() async {
   runApp(const MyApp());

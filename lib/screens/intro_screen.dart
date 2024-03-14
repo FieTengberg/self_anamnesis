@@ -23,8 +23,6 @@ class IntroScreenState extends State<IntroScreen> {
   }
 
   late AudioPlayer audioPlayer;
- 
-
 
   @override
   void initState() {
@@ -32,8 +30,6 @@ class IntroScreenState extends State<IntroScreen> {
     audioPlayer = AudioPlayer();
     playAudio('audio_files/intro1.mp3');
   }
-
-    
   
   @override
   Widget build(BuildContext context) {
