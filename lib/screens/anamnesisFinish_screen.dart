@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_application_test/screens/log_ind_screen.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
 
-class FinishScreen extends StatelessWidget {
+class FinishScreen extends StatefulWidget {
+  @override
+  FinishScreenState createState() => FinishScreenState();
+}
+
+class FinishScreenState extends State<FinishScreen> {
+  Future<void> playAudio(path) async {
+    await audioPlayer.play(AssetSource(path));
+  }
+
+  late AudioPlayer audioPlayer;
+
+  @override
+  void initState() {
+    super.initState();
+    audioPlayer = AudioPlayer();
+    playAudio('audio_files/finalMessage.mp3');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

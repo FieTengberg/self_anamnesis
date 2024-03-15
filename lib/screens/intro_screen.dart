@@ -9,9 +9,6 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audioplayers/audioplayers.dart';
 //import 'package:audioplayers/audio_cache.dart';
 
-
-
-
 class IntroScreen extends StatefulWidget {
   @override
   IntroScreenState createState() => IntroScreenState();
@@ -84,15 +81,10 @@ class IntroScreenState extends State<IntroScreen> {
             ElevatedButton(
               onPressed: () async {
                 // Handle button press
-                // Make the text-to-speech request
-                //TextToSpeechState textProvider = TextToSpeechState();
-                //textProvider.locateIndexInJsonFile(1);
-                //get recording
-                playAudio('audio_files/question1.mp3');
-
+              
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RecordScreen()),
+                  MaterialPageRoute(builder: (context) => RecordScreen(index: 0)),
                 );
               },
               style: ElevatedButton.styleFrom(

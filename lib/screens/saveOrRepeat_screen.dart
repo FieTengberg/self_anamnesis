@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
+import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/NLP_models/ElevenLabTTS.dart';
 import 'package:flutter_application_test/screens/intro_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-
 class SaveOrRepeatScreen extends StatelessWidget {
-  
+  final int index;
+  SaveOrRepeatScreen({required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Green square for play symbol
+                      // Green square for play again symbol
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +54,11 @@ class SaveOrRepeatScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 // Navigate back to RecordScreen
-                                Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            RecordScreen(index: index)));
                               },
                               child: Container(
                                 width: 100,
@@ -85,22 +90,21 @@ class SaveOrRepeatScreen extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                              // Make the text-to-speech request
-                              //TextToSpeechState textProvider = TextToSpeechState();
-                              //textProvider.locateIndexInJsonFile(2);
-                             
-                                // Functionality for saving the recording
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => FinishScreen()),
-                                );
-                                 //get recording _VIRKER IKKE!!!!
-                              late AudioPlayer audioPlayer;
-                              IntroScreenState askQuestion = IntroScreenState();
-                              audioPlayer = AudioPlayer();
-                              askQuestion.playAudio('audio_files/finalMessage.mp3');
-                              
+                                // Make the text-to-speech request
+                                if (index == questionText.length) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FinishScreen()),
+                                  );
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            RecordScreen(index: index + 1)),
+                                  );
+                                }
                               },
                               child: Container(
                                 width: 100,

@@ -1,13 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class RecordScreen extends StatefulWidget {
+  final int index;
+  RecordScreen({required this.index});
+
   @override
   _RecordScreenState createState() => _RecordScreenState();
 }
 
+const audioFiles = ['audio_files/question1.mp3', 'audio_files/question1.mp3'];
+const questionText = ['question1', 'question2'];
+
 class _RecordScreenState extends State<RecordScreen> {
   bool isRecording = false;
+
+  Future<void> playAudio(path) async {
+    await audioPlayer.play(AssetSource(path));
+  }
+
+  late AudioPlayer audioPlayer;
+
+  @override
+  void initState() {
+    super.initState();
+    audioPlayer = AudioPlayer();
+    playAudio(audioFiles[widget.index]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +42,7 @@ class _RecordScreenState extends State<RecordScreen> {
           children: [
             // Text: Question
             Text(
-              'Hvor intense er dine smerter på en skala fra 1 til 10?',
+              questionText[widget.index],
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10), // Spacer
@@ -101,7 +122,8 @@ class _RecordScreenState extends State<RecordScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                SaveOrRepeatScreen()),
+                                                SaveOrRepeatScreen(
+                                                    index: widget.index)),
                                       );
                                     },
                               child: Container(
