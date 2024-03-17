@@ -4,7 +4,6 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-
 class RecordScreen extends StatefulWidget {
   final int index;
   RecordScreen({required this.index});
@@ -13,8 +12,11 @@ class RecordScreen extends StatefulWidget {
   _RecordScreenState createState() => _RecordScreenState();
 }
 
-const audioFiles = ['audio_files/question1.mp3', 'audio_files/question1.mp3'];
-const questionText = ['assets/text_strings/question1.txt','text_strings/question2.txt'];
+const audioFiles = ['audio_files/question1.mp3', 'audio_files/question2.mp3'];
+const questionText = [
+  'assets/text_strings/question1.txt',
+  'assets/text_strings/question2.txt'
+];
 
 class _RecordScreenState extends State<RecordScreen> {
   bool isRecording = false;
@@ -25,30 +27,27 @@ class _RecordScreenState extends State<RecordScreen> {
     await audioPlayer.play(AssetSource(path));
   }
 
-Future<void> loadQuestionText() async {
-  try {
-    String question;
-    question = await rootBundle.loadString(questionText[0]);
-    setState(() {
-      text = question;
-    });
-  } catch (e) {
-    setState(() {
-      // Set text to an empty string in case of error
-      text = 'It does not work!';
-    });
+  Future<void> loadQuestionText() async {
+    try {
+      String question;
+      question = await rootBundle.loadString(questionText[widget.index]);
+      setState(() {
+        text = question;
+      });
+    } catch (e) {
+      setState(() {
+        // Set text to an empty string in case of error
+        text = 'It does not work!';
+      });
+    }
   }
-}
-
 
   @override
   void initState() {
     super.initState();
-    
     audioPlayer = AudioPlayer();
     loadQuestionText(); // Load question text when screen initializes
     playAudio(audioFiles[widget.index]);
-    
   }
 
   @override
@@ -63,17 +62,19 @@ Future<void> loadQuestionText() async {
           children: [
             // Text: Question
             Text(
-          text,
-  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
-     textAlign: TextAlign.center, // Align text center
-),
+              text,
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+              textAlign: TextAlign.center, // Align text center
+            ),
             SizedBox(height: 10), // Spacer
             // Text: Added explanation
-            Text(
-              '',
-              //'1 er ingen smerte og 10 er den værst tænkelige smerte, som du kan forestille dig',
+           /* Text(
+              '1 er ingen smerte og 10 er den værst tænkelige smerte, som du kan forestille dig',
               style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
+            ),*/
 
             SizedBox(height: 50), // Spacer
 

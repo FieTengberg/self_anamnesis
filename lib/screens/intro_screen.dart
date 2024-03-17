@@ -8,6 +8,8 @@ import 'package:flutter_application_test/screens/askQuestion_screen.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audioplayers/audioplayers.dart';
 //import 'package:audioplayers/audio_cache.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class IntroScreen extends StatefulWidget {
 }
 
 class IntroScreenState extends State<IntroScreen> {
+  late String text;
   Future<void> playAudio(path) async {
     await audioPlayer.play(AssetSource(path));
   }
@@ -25,9 +28,25 @@ class IntroScreenState extends State<IntroScreen> {
   void initState() {
     super.initState();
     audioPlayer = AudioPlayer();
+    loadQuestionText();
     playAudio('audio_files/intro1.mp3');
   }
   
+  
+  Future<void> loadQuestionText() async {
+    try {
+      String question;
+      question = await rootBundle.loadString('assets/text_strings/intro.txt');
+     setState(() {
+        text = question;
+      });
+    } catch (e) {
+      setState(() {
+        // Set text to an empty string in case of error
+        text = 'It does not work!';
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,12 +71,12 @@ class IntroScreenState extends State<IntroScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hej Jan!',
+                      text,
                       style: TextStyle(fontSize: 20),
                     ),
                     SizedBox(height: 10), // space between sections
                     Text(
-                      'For at hjælpe din fysioterapeut med at målrette din behandlingsindsats, skal vi have dig til at besvare nogle spørgsmål omhandlende din problematik og grunden til at du er her.',
+                      '',
                       style: TextStyle(fontSize: 20),
                     ),
                   ],

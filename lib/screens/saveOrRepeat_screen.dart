@@ -5,9 +5,15 @@ import 'package:flutter_application_test/NLP_models/ElevenLabTTS.dart';
 import 'package:flutter_application_test/screens/intro_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+
+const questionText = [
+  'assets/text_strings/question1.txt',
+  'assets/text_strings/question2.txt'
+];
 class SaveOrRepeatScreen extends StatelessWidget {
   final int index;
   SaveOrRepeatScreen({required this.index});
+  
 
   @override
   Widget build(BuildContext context) {
