@@ -4,16 +4,45 @@ import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/NLP_models/ElevenLabTTS.dart';
 import 'package:flutter_application_test/screens/intro_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 
 const questionText = [
   'assets/text_strings/question1.txt',
   'assets/text_strings/question2.txt'
 ];
-class SaveOrRepeatScreen extends StatelessWidget {
+class SaveOrRepeatScreen extends StatefulWidget {
   final int index;
+  late String text; // Store question text here
   SaveOrRepeatScreen({required this.index});
+  @override
+  _SaveOrRepeatScreenState createState() => _SaveOrRepeatScreenState();
+}
+
+class _SaveOrRepeatScreenState extends State<SaveOrRepeatScreen> {
+   late String text; // Store question text here
+
+ 
   
+  Future<void> loadQuestionText() async {
+    try {
+      String question;
+      question = await rootBundle.loadString(questionText[widget.index]);
+      setState(() {
+        text = question;
+      });
+    } catch (e) {
+      setState(() {
+        // Set text to an empty string in case of error
+        text = 'It does not work!';
+      });
+    }
+  }
+    @override
+  void initState() {
+    super.initState();
+    loadQuestionText(); // Load question text when screen initializes
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +56,16 @@ class SaveOrRepeatScreen extends StatelessWidget {
           children: [
             // Text: Question
             Text(
-              'Hvor intense er dine smerter på en skala fra 1 til 10?',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              text,
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
             SizedBox(height: 10), // Spacer
             // Text: Added explanation
-            Text(
-              '1 er ingen smerte og 10 er den værst tænkelige smerte, som du kan forestille dig',
+            /*Text(
+              '',
               style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
+            ),*/
 
             SizedBox(height: 50), // Spacer
 
@@ -64,7 +94,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            RecordScreen(index: index)));
+                                            RecordScreen(index: widget.index)));
                               },
                               child: Container(
                                 width: 100,
@@ -97,8 +127,8 @@ class SaveOrRepeatScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 // Make the text-to-speech request
-                                if (index == questionText.length -1) {
-                                  print(index);
+                                if (widget.index == questionText.length -1) {
+                                  print(widget.index);
                                   print(questionText.length);
                                   Navigator.push(
                                     context,
@@ -110,7 +140,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            RecordScreen(index: index + 1)),
+                                            RecordScreen(index: widget.index + 1)),
                                   );
                                 }
                               },
