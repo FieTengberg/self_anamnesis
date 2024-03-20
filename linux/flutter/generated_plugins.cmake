@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_linux
   flutter_audio_capture
   libwinmedia
+  record_linux
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

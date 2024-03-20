@@ -3,6 +3,7 @@ import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:record/record.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -21,10 +22,32 @@ const questionText = [
 class _RecordScreenState extends State<RecordScreen> {
   bool isRecording = false;
   late AudioPlayer audioPlayer;
+  final recordPlayer = AudioRecorder();
   String text = ""; // Store question text here
 
   Future<void> playAudio(path) async {
     await audioPlayer.play(AssetSource(path));
+  }
+
+  Future<void> startRecording(index) async {
+    // Check and request permission if needed
+    if (await recordPlayer.hasPermission()) {
+      // Start recording to file
+      await recordPlayer.start(const RecordConfig(),
+          path: 'answer_files/answer$index.mp3');
+      // ... or to stream
+      final stream = await recordPlayer
+          .startStream(RecordConfig(encoder: AudioEncoder.pcm16bits));
+    }
+  }
+
+  Future<void> stopRecording() async {
+    // Stop recording...
+    final path = await recordPlayer.stop();
+    // ... or cancel it (and implicitly remove file/blob).
+    //await recordPlayer.cancel();
+
+    recordPlayer.dispose(); // As always, don't forget this one.
   }
 
   Future<void> loadQuestionText() async {
@@ -44,8 +67,8 @@ class _RecordScreenState extends State<RecordScreen> {
 
   @override
   void initState() {
-    super.initState();
     audioPlayer = AudioPlayer();
+    super.initState();
     loadQuestionText(); // Load question text when screen initializes
     playAudio(audioFiles[widget.index]);
   }
@@ -71,7 +94,7 @@ class _RecordScreenState extends State<RecordScreen> {
             ),
             SizedBox(height: 10), // Spacer
             // Text: Added explanation
-           /* Text(
+            /* Text(
               '1 er ingen smerte og 10 er den værst tænkelige smerte, som du kan forestille dig',
               style: TextStyle(fontSize: 18, color: Colors.grey),
             ),*/
@@ -102,6 +125,7 @@ class _RecordScreenState extends State<RecordScreen> {
                                   : () {
                                       setState(() {
                                         isRecording = true;
+                                        startRecording(widget.index);
                                       });
                                     },
                               child: Container(
