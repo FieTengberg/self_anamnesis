@@ -20,7 +20,7 @@ class SaveOrRepeatScreen extends StatefulWidget {
 }
 
 class _SaveOrRepeatScreenState extends State<SaveOrRepeatScreen> {
-   late String text; // Store question text here
+   String text = ""; // Store question text here
 
  
   

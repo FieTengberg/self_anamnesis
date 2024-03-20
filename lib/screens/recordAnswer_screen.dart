@@ -21,7 +21,7 @@ const questionText = [
 class _RecordScreenState extends State<RecordScreen> {
   bool isRecording = false;
   late AudioPlayer audioPlayer;
-  late String text; // Store question text here
+  String text = ""; // Store question text here
 
   Future<void> playAudio(path) async {
     await audioPlayer.play(AssetSource(path));

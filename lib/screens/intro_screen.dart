@@ -17,7 +17,7 @@ class IntroScreen extends StatefulWidget {
 }
 
 class IntroScreenState extends State<IntroScreen> {
-  late String text;
+  String text = "";
   Future<void> playAudio(path) async {
     await audioPlayer.play(AssetSource(path));
   }
