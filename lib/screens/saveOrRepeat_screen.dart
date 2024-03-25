@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
-import 'package:flutter_application_test/NLP_models/ElevenLabTTS.dart';
-import 'package:flutter_application_test/screens/intro_screen.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 class SaveOrRepeatScreen extends StatelessWidget {
   final int index;

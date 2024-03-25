@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class FinishScreen extends StatefulWidget {
@@ -18,7 +17,7 @@ class FinishScreenState extends State<FinishScreen> {
   void initState() {
     super.initState();
     audioPlayer = AudioPlayer();
-    playAudio('audio_files/finalMessage.mp3');
+    playAudio('audio_files/finish.mp3');
   }
 
   @override

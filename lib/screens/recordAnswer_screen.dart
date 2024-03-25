@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -11,23 +11,42 @@ class RecordScreen extends StatefulWidget {
   _RecordScreenState createState() => _RecordScreenState();
 }
 
-const audioFiles = ['audio_files/question1.mp3', 'audio_files/question1.mp3'];
-const questionText = ['question1', 'question2'];
+const audioFiles = ['audio_files/question1.mp3', 'audio_files/question2.mp3'];
+const questionText = [
+  'assets/text_strings/question1.txt',
+  'assets/text_strings/question2.txt'
+];
 
 class _RecordScreenState extends State<RecordScreen> {
   bool isRecording = false;
+  String questionString = ""; // Store question text here
+  late AudioPlayer audioPlayer;
 
   Future<void> playAudio(path) async {
     await audioPlayer.play(AssetSource(path));
   }
 
-  late AudioPlayer audioPlayer;
+  Future<void> loadQuestionText() async {
+    try {
+      String getQuestion;
+      getQuestion = await rootBundle.loadString(questionText[widget.index]);
+      setState(() {
+        questionString = getQuestion;
+      });
+    } catch (e) {
+      setState(() {
+        // Set text to an empty string in case of error
+        questionString = 'It does not work!';
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     audioPlayer = AudioPlayer();
     playAudio(audioFiles[widget.index]);
+    loadQuestionText(); // Load question text when screen initializes
   }
 
   @override
@@ -42,16 +61,17 @@ class _RecordScreenState extends State<RecordScreen> {
           children: [
             // Text: Question
             Text(
-              questionText[widget.index],
+              questionString,
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10), // Spacer
             // Text: Added explanation
+            /*
             Text(
               '1 er ingen smerte og 10 er den værst tænkelige smerte, som du kan forestille dig',
               style: TextStyle(fontSize: 18, color: Colors.grey),
             ),
-
+            */
             SizedBox(height: 50), // Spacer
 
             // Large square container with black border

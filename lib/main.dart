@@ -1,16 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/intro_screen.dart';
-import 'NLP_models/ElevenLabTTS.dart';
-import 'package:logging/logging.dart';
-
 
 void main() async {
   runApp(const MyApp());
-  
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key});
@@ -61,10 +54,6 @@ class _LogInScreenState extends State<LogInScreen> {
                   height: 30), // Adding space between TextField and Button
               ElevatedButton(
                 onPressed: () async {
-                  // Handle button press
-                  // Make the text-to-speech request
-                  //TextToSpeechState textProvider = TextToSpeechState();
-                  //textProvider.locateIndexInJsonFile(0);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => IntroScreen()),

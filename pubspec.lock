@@ -25,14 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
-  audio_session:
-    dependency: transitive
-    description:
-      name: audio_session
-      sha256: "6fdf255ed3af86535c96452c33ecff1245990bb25a605bfb1958661ccc3d467f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.18"
   audioplayers:
     dependency: "direct main"
     description:
@@ -201,7 +193,7 @@ packages:
     source: sdk
     version: "0.0.0"
   http:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: http
       sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
@@ -224,38 +216,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
-  just_audio:
-    dependency: "direct main"
-    description:
-      name: just_audio
-      sha256: b607cd1a43bac03d85c3aaee00448ff4a589ef2a77104e3d409889ff079bf823
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.36"
-  just_audio_libwinmedia:
-    dependency: "direct main"
-    description:
-      name: just_audio_libwinmedia
-      sha256: "66587bbc7a2c46fc7ad5625c97e7f7282bdb3e1daeba1be759fb464cabbf9dc3"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.4+1"
-  just_audio_platform_interface:
-    dependency: transitive
-    description:
-      name: just_audio_platform_interface
-      sha256: c3dee0014248c97c91fe6299edb73dc4d6c6930a2f4f713579cd692d9e47f4a1
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.2"
-  just_audio_web:
-    dependency: transitive
-    description:
-      name: just_audio_web
-      sha256: "134356b0fe3d898293102b33b5fd618831ffdc72bb7a1b726140abdf22772b70"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.9"
   leak_tracker:
     dependency: transitive
     description:
@@ -280,14 +240,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  libwinmedia:
-    dependency: transitive
-    description:
-      name: libwinmedia
-      sha256: c9223d9213f99bf498a516079e274eca4982024d46df633ef20a9d8006b5d826
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.7"
   lints:
     dependency: transitive
     description:
@@ -296,14 +248,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-  logging:
-    dependency: "direct main"
-    description:
-      name: logging
-      sha256: "623a88c9594aa774443aa3eb2d41807a48486b5613e67599fb4c41c0ad47c340"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0"
   matcher:
     dependency: transitive
     description:
@@ -509,14 +453,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
-  web_socket_channel:
-    dependency: "direct dev"
-    description:
-      name: web_socket_channel
-      sha256: "1d8e795e2a8b3730c41b8a98a2dff2e0fb57ae6f0764a1c46ec5915387d257b2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.4"
   win32:
     dependency: transitive
     description:
