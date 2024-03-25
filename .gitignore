@@ -84,5 +84,5 @@ macos/Flutter/Generated*
 .flutter-plugins-dependencies*
 macos/Flutter/GeneratedPluginRegistrant.swift
 linux/flutter/generated_plugins.cmake
-linux/flutter/generated_plugin_registrant.cc
-.flutter-plugins-dependencies
+linux/flutter/generated*
+.flutter-plugins*
