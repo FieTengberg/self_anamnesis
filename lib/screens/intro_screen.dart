@@ -8,21 +8,24 @@ class IntroScreen extends StatefulWidget {
 }
 
 class IntroScreenState extends State<IntroScreen> {
-  Future<void> playAudio(path) async {
-    await audioPlayer.play(AssetSource(path));
-  }
-
-  late AudioPlayer audioPlayer;
-
+  /*
   @override
   void initState() {
     super.initState();
-    audioPlayer = AudioPlayer();
-    playAudio('audio_files/intro.mp3');
+    //audioPlayer = AudioPlayer();
+    //playAudio();
+  }
+*/
+  AudioPlayer audioPlayer = AudioPlayer();
+
+  Future<void> playAudio() async {
+    String soundPath = "audio_files/intro.mp3";
+    await audioPlayer.play(AssetSource(soundPath));
   }
 
   @override
   Widget build(BuildContext context) {
+    playAudio();
     return Scaffold(
       appBar: AppBar(
         title: Text('Intro Screen'),
@@ -74,7 +77,7 @@ class IntroScreenState extends State<IntroScreen> {
             ElevatedButton(
               onPressed: () async {
                 // Handle button press
-
+                await audioPlayer.stop();
                 Navigator.push(
                   context,
                   MaterialPageRoute(

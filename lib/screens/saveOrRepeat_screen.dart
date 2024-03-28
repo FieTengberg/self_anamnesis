@@ -4,7 +4,8 @@ import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 
 class SaveOrRepeatScreen extends StatelessWidget {
   final int index;
-  SaveOrRepeatScreen({required this.index});
+  final String questionString;
+  SaveOrRepeatScreen({required this.index, required this.questionString});
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +19,11 @@ class SaveOrRepeatScreen extends StatelessWidget {
           children: [
             // Text: Question
             Text(
-              'Hvor intense er dine smerter på en skala fra 1 til 10?',
+              questionString,
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10), // Spacer
-            // Text: Added explanation
-            Text(
-              '1 er ingen smerte og 10 er den værst tænkelige smerte, som du kan forestille dig',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
 
-            SizedBox(height: 50), // Spacer
+            SizedBox(height: 60), // Spacer
 
             // Large square container with black border
             Container(

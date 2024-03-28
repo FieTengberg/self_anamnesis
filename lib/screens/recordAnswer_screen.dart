@@ -143,7 +143,9 @@ class _RecordScreenState extends State<RecordScreen> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 SaveOrRepeatScreen(
-                                                    index: widget.index)),
+                                                    index: widget.index,
+                                                    questionString:
+                                                        questionString)),
                                       );
                                     },
                               child: Container(

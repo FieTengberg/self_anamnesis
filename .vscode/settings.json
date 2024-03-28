@@ -1,7 +1,7 @@
 {
   "cmake.configureOnOpen": true,
-  "cmake.sourceDirectory": "C:/Users/alona/OneDrive/Dokumenter/GitHub/self_anamnesis/windows/runner",
-  "cSpell.words": [
-    "audioplayers"
-  ]
+  "cmake.sourceDirectory": "C:/udviklingsprojekter/self_anamnesis/windows/flutter",
+  "cmake.cmakePath": "C:/Program Files/CMake/bin/cmake.exe",
+  "cmake.generator": "Visual Studio 17 2022",
+  "cSpell.words": ["audioplayers"],
 }
