@@ -21,6 +21,20 @@ class _RecordScreenState extends State<RecordScreen> {
   bool isRecording = false;
   String questionString = ""; // Store question text here
   late AudioPlayer audioPlayer;
+  late int questionsAnswered;
+  late int totalQuestions;
+  late double progress;
+
+  @override
+  void initState() {
+    super.initState();
+    audioPlayer = AudioPlayer();
+    playAudio(audioFiles[widget.index]);
+    loadQuestionText(); // Load question text when screen initializes
+    totalQuestions = questionText.length;
+    questionsAnswered = widget.index + 1;
+    progress = questionsAnswered / totalQuestions;
+  }
 
   Future<void> playAudio(path) async {
     await audioPlayer.play(AssetSource(path));
@@ -42,14 +56,6 @@ class _RecordScreenState extends State<RecordScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    audioPlayer = AudioPlayer();
-    playAudio(audioFiles[widget.index]);
-    loadQuestionText(); // Load question text when screen initializes
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -64,7 +70,7 @@ class _RecordScreenState extends State<RecordScreen> {
               questionString,
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
-            
+
             SizedBox(height: 60), // Spacer
 
             // Large square container with black border
@@ -198,7 +204,7 @@ class _RecordScreenState extends State<RecordScreen> {
                   height: 10,
                   child: LinearProgressIndicator(
                     value:
-                        0.5, // Change this value dynamically based on user's progress
+                        progress, // Change this value dynamically based on user's progress
                     backgroundColor: const Color.fromARGB(255, 223, 220, 220),
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                   ),
@@ -208,7 +214,7 @@ class _RecordScreenState extends State<RecordScreen> {
 
                 // Text displaying progress
                 Text(
-                  'Du har svaret på 5 ud af 10 spørgsmål', // Change this text dynamically based on user's progress
+                  'Du er nået til $questionsAnswered ud af $totalQuestions spørgsmål', // Change this text dynamically based on user's progress
                   style: TextStyle(color: Colors.grey, fontSize: 18),
                 ),
               ],
