@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -8,17 +9,33 @@ class IntroScreen extends StatefulWidget {
 }
 
 class IntroScreenState extends State<IntroScreen> {
+  String text = ""; //for display
+  AudioPlayer audioPlayer = AudioPlayer();
+
   @override
   void initState() {
     super.initState();
-    //audioPlayer = AudioPlayer();
+    getText();
   }
-
-  AudioPlayer audioPlayer = AudioPlayer();
 
   Future<void> playAudio() async {
     String soundPath = "audio_files/intro.mp3";
     await audioPlayer.play(AssetSource(soundPath));
+  }
+
+  Future<void> getText() async {
+    try {
+      String introText;
+      introText = await rootBundle.loadString('assets/text_strings/intro.txt');
+      setState(() {
+        text = introText;
+      });
+    } catch (e) {
+      setState(() {
+        // Set text to an empty string in case of error
+        text = 'It does not work!';
+      });
+    }
   }
 
   @override
@@ -46,12 +63,7 @@ class IntroScreenState extends State<IntroScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hej!',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    SizedBox(height: 10), // space between sections
-                    Text(
-                      'For at hjælpe din fysioterapeut med at målrette sin behandlingsindsats, skal vi have dig til at besvare nogle spørgsmål omhandlende din problematik og grunden til at du er her.',
+                      text,
                       style: TextStyle(fontSize: 20),
                     ),
                   ],
@@ -59,7 +71,7 @@ class IntroScreenState extends State<IntroScreen> {
               ),
             ),
 
-            SizedBox(height: 30), // Spacer
+            SizedBox(height: 40), // Spacer
 
             Center(
               // Wrap the text with Center widget

@@ -64,15 +64,8 @@ class _RecordScreenState extends State<RecordScreen> {
               questionString,
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10), // Spacer
-            // Text: Added explanation
-            /*
-            Text(
-              '1 er ingen smerte og 10 er den værst tænkelige smerte, som du kan forestille dig',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-            */
-            SizedBox(height: 50), // Spacer
+            
+            SizedBox(height: 60), // Spacer
 
             // Large square container with black border
             Container(

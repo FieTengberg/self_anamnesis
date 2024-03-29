@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class FinishScreen extends StatefulWidget {
   @override
@@ -7,8 +8,26 @@ class FinishScreen extends StatefulWidget {
 }
 
 class FinishScreenState extends State<FinishScreen> {
+  String text = ""; //for display
+
   Future<void> playAudio(path) async {
     await audioPlayer.play(AssetSource(path));
+  }
+
+  Future<void> getText() async {
+    try {
+      String finishText;
+      finishText =
+          await rootBundle.loadString('assets/text_strings/finish.txt');
+      setState(() {
+        text = finishText;
+      });
+    } catch (e) {
+      setState(() {
+        // Set text to an empty string in case of error
+        text = 'It does not work!';
+      });
+    }
   }
 
   late AudioPlayer audioPlayer;
@@ -18,6 +37,7 @@ class FinishScreenState extends State<FinishScreen> {
     super.initState();
     audioPlayer = AudioPlayer();
     playAudio('audio_files/finish.mp3');
+    getText();
   }
 
   @override
@@ -44,12 +64,7 @@ class FinishScreenState extends State<FinishScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Tak Jan!',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    SizedBox(height: 10), // space between sections
-                    Text(
-                      'Dine svar bliver nu sendt videre til din fysioterapeut, som vil læse det igennem, inden du kaldes ind til videre undersøgelse og tests. I mellemtiden kan du finde dig til rette i venteværelset med et magasin og en kop te eller kaffe.',
+                      text,
                       style: TextStyle(fontSize: 20),
                     ),
                   ],
@@ -57,7 +72,7 @@ class FinishScreenState extends State<FinishScreen> {
               ),
             ),
 
-            SizedBox(height: 30), // Spacer
+            SizedBox(height: 40), // Spacer
 
             Center(
               // Wrap the text with Center widget
