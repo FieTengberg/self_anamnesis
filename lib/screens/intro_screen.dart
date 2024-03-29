@@ -8,14 +8,12 @@ class IntroScreen extends StatefulWidget {
 }
 
 class IntroScreenState extends State<IntroScreen> {
-  /*
   @override
   void initState() {
     super.initState();
     //audioPlayer = AudioPlayer();
-    //playAudio();
   }
-*/
+
   AudioPlayer audioPlayer = AudioPlayer();
 
   Future<void> playAudio() async {
@@ -78,6 +76,7 @@ class IntroScreenState extends State<IntroScreen> {
               onPressed: () async {
                 // Handle button press
                 await audioPlayer.stop();
+                await audioPlayer.dispose();
                 Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -95,7 +95,11 @@ class _RecordScreenState extends State<RecordScreen> {
                             InkWell(
                               onTap: isRecording
                                   ? null // Disable onTap when recording
-                                  : () {
+                                  : () async {
+                                      //stop and dispose audioplayer
+                                      await audioPlayer.stop();
+                                      await audioPlayer.dispose();
+                                      //update state
                                       setState(() {
                                         isRecording = true;
                                       });
