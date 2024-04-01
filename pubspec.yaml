@@ -38,8 +38,8 @@ dependencies:
 
   audioplayers: ^6.0.0
   flutter_dotenv: ^5.0.2
-  #flutter_audio_capture: ^1.1.4
-  assets_audio_player: ^3.0.8
+  flutter_sound: ^9.4.6
+  permission_handler: ^11.3.0
 
 dev_dependencies:
   flutter_test:

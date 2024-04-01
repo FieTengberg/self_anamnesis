@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -24,16 +27,28 @@ class _RecordScreenState extends State<RecordScreen> {
   late int questionsAnswered;
   late int totalQuestions;
   late double progress;
+  final recorder = FlutterSoundRecorder();
 
   @override
   void initState() {
     super.initState();
+    initRecorder();
     audioPlayer = AudioPlayer();
     playAudio(audioFiles[widget.index]);
     loadQuestionText(); // Load question text when screen initializes
     totalQuestions = questionText.length;
     questionsAnswered = widget.index + 1;
     progress = questionsAnswered / totalQuestions;
+  }
+
+  Future initRecorder() async {
+    final status = await Permission.microphone.request();
+
+    if (status != PermissionStatus.granted) {
+      throw 'Microphone permission not granted';
+    }
+
+    await recorder.openRecorder();
   }
 
   Future<void> playAudio(path) async {
@@ -52,6 +67,27 @@ class _RecordScreenState extends State<RecordScreen> {
         // Set text to an empty string in case of error
         questionString = 'It does not work!';
       });
+    }
+  }
+
+  Future record() async {
+    await recorder.startRecorder(toFile: 'audio');
+  }
+
+  Future stop() async {
+    final path = await recorder.stopRecorder();
+    if (path != null) {
+      final audioFile = File(path);
+
+      //connect to database
+      // SAVE IN DATABASE 
+      // send to API
+
+      print(path);
+      print('Recorded audio: $audioFile');
+
+    } else {
+      print('File not saved');
     }
   }
 
@@ -95,9 +131,11 @@ class _RecordScreenState extends State<RecordScreen> {
                               onTap: isRecording
                                   ? null // Disable onTap when recording
                                   : () async {
-                                      //stop and dispose audioplayer
+                                      //stop and dispose question reading if recording started
                                       await audioPlayer.stop();
                                       await audioPlayer.dispose();
+                                      //start recording answer
+                                      await record();
                                       //update state
                                       setState(() {
                                         isRecording = true;
@@ -136,7 +174,8 @@ class _RecordScreenState extends State<RecordScreen> {
                             InkWell(
                               onTap: !isRecording
                                   ? null // Disable onTap when not recording
-                                  : () {
+                                  : () async {
+                                      await stop();
                                       setState(() {
                                         isRecording = false;
                                       });
