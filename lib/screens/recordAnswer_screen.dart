@@ -5,6 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -75,19 +76,24 @@ class _RecordScreenState extends State<RecordScreen> {
   }
 
   Future stop() async {
-    final path = await recorder.stopRecorder();
-    if (path != null) {
-      final audioFile = File(path);
+    final internalFilePath = await recorder.stopRecorder();
+    if (internalFilePath != null) {
+      //print(internalFilePath);
 
-      //connect to database
-      // SAVE IN DATABASE 
-      // send to API
+      final externalStoragePath = (await getExternalStorageDirectory())!.path;
+      //print(externalStoragePath);
 
-      print(path);
-      print('Recorded audio: $audioFile');
-
-    } else {
-      print('File not saved');
+      try {
+        final newFilePath =
+            '$externalStoragePath/question.mp3'; // The path to which the file should be stored with name
+        //print('New file path: $newFilePath');
+        final internalFile = File(
+            internalFilePath); //The file which is copied from the internal path
+        await internalFile.copy(newFilePath); //coping the file
+        print('File copied to: $newFilePath');
+      } catch (e) {
+        print('Error copying file: $e');
+      }
     }
   }
 
