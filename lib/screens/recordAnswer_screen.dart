@@ -85,7 +85,7 @@ class _RecordScreenState extends State<RecordScreen> {
 
       try {
         final newFilePath =
-            '$externalStoragePath/question.mp3'; // The path to which the file should be stored with name
+            '$externalStoragePath/question$questionsAnswered.mp3'; // The path to which the file should be stored with name
         //print('New file path: $newFilePath');
         final internalFile = File(
             internalFilePath); //The file which is copied from the internal path

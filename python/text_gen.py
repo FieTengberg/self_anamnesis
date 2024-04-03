@@ -1,13 +1,6 @@
 import torch
-from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
-from datasets import load_dataset
 import os
-
-# Define the relative path to the audio file
-relative_path = os.path.join("audio_files", "assets", "intro.mp3")
-
-# Get the absolute path by joining the current working directory with the relative path
-absolute_path = os.path.abspath(relative_path)
+from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
@@ -34,11 +27,11 @@ pipe = pipeline(
     device=device,
 )
 
-# Load the audio file
-with open(absolute_path, "rb") as audio_file:
+# Construct the path to the audio file
+audio_file_path = os.path.join("..", "assets", "audio_files", "answer2.mp3")
+with open(audio_file_path, "rb") as audio_file:
     sample = audio_file.read()
 
-# Perform transcription
 result = pipe(sample)
 transcribed_text = result["text"]
 
