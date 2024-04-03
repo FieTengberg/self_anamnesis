@@ -4,7 +4,7 @@ import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:permission_handler/permission_handler.dart';
+//import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 
 class RecordScreen extends StatefulWidget {
@@ -23,7 +23,7 @@ const questionText = [
 
 class _RecordScreenState extends State<RecordScreen> {
   bool isRecording = false;
-  String questionString = ""; // Store question text here
+  String questionString = "";
   late AudioPlayer audioPlayer;
   late int questionsAnswered;
   late int totalQuestions;
@@ -33,7 +33,7 @@ class _RecordScreenState extends State<RecordScreen> {
   @override
   void initState() {
     super.initState();
-    initRecorder();
+    //initRecorder(); //behøver ikke at blive kaldt, da metoden er udkommenteret
     audioPlayer = AudioPlayer();
     playAudio(audioFiles[widget.index]);
     loadQuestionText(); // Load question text when screen initializes
@@ -42,6 +42,8 @@ class _RecordScreenState extends State<RecordScreen> {
     progress = questionsAnswered / totalQuestions;
   }
 
+//udkommenteret request delen, da den kan undværes
+/*
   Future initRecorder() async {
     final status = await Permission.microphone.request();
 
@@ -51,8 +53,10 @@ class _RecordScreenState extends State<RecordScreen> {
 
     await recorder.openRecorder();
   }
+*/
 
   Future<void> playAudio(path) async {
+    await recorder.openRecorder();
     await audioPlayer.play(AssetSource(path));
   }
 
@@ -65,7 +69,6 @@ class _RecordScreenState extends State<RecordScreen> {
       });
     } catch (e) {
       setState(() {
-        // Set text to an empty string in case of error
         questionString = 'It does not work!';
       });
     }
