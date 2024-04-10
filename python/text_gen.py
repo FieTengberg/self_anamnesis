@@ -28,7 +28,7 @@ pipe = pipeline(
 )
 
 # Construct the path to the audio file
-audio_file_path = os.path.join("..", "assets", "audio_files", "answer2.mp3")
+audio_file_path = os.path.join("..", "data", "audio_data_files", "answer2.mp3")
 with open(audio_file_path, "rb") as audio_file:
     sample = audio_file.read()
 
