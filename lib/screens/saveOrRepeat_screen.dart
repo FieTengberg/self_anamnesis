@@ -83,7 +83,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 // Make the text-to-speech request
-                                if (index == questionText.length - 1) {
+                                if (index == 2 - 1) {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

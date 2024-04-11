@@ -4,6 +4,7 @@ import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 
 class RecordScreen extends StatefulWidget {
@@ -13,12 +14,6 @@ class RecordScreen extends StatefulWidget {
   @override
   _RecordScreenState createState() => _RecordScreenState();
 }
-
-const audioFiles = ['audio_files/question1.mp3', 'audio_files/question2.mp3'];
-const questionText = [
-  'assets/text_strings/question1.txt',
-  'assets/text_strings/question2.txt'
-];
 
 class _RecordScreenState extends State<RecordScreen> {
   bool isRecording = false;
@@ -32,38 +27,43 @@ class _RecordScreenState extends State<RecordScreen> {
   @override
   void initState() {
     super.initState();
-    audioPlayer = AudioPlayer();
-    playAudio(audioFiles[widget.index]);
-    loadQuestionText(); // Load question text when screen initializes
-    totalQuestions = questionText.length;
+    initRecorder();
+    totalQuestions = 2;
     questionsAnswered = widget.index + 1;
+    audioPlayer = AudioPlayer();
+    playAudio(
+        'audio_files/question$questionsAnswered.mp3'); // Call function for playing audio file
+    loadQuestionText(
+        'assets/text_strings/question$questionsAnswered.txt'); // Load question text
     progress = questionsAnswered / totalQuestions;
   }
 
-  Future<void> playAudio(path) async {
+  Future initRecorder() async {
+    final status = await Permission.microphone.request();
+
+    if (status != PermissionStatus.granted) {
+      throw 'Microphone permission not granted';
+    }
+
     await recorder.openRecorder();
+  }
+
+  Future<void> playAudio(path) async {
     await audioPlayer.play(AssetSource(path));
   }
 
-  Future<void> loadQuestionText() async {
-    try {
-      String getQuestion;
-      getQuestion = await rootBundle.loadString(questionText[widget.index]);
-      setState(() {
-        questionString = getQuestion;
-      });
-    } catch (e) {
-      setState(() {
-        questionString = 'It does not work!';
-      });
-    }
+  Future loadQuestionText(String path) async {
+    String questionText = await rootBundle.loadString(path);
+    setState(() {
+      questionString = questionText;
+    });
   }
 
-  Future record() async {
+  Future startRecording() async {
     await recorder.startRecorder(toFile: 'audio');
   }
 
-  Future stop() async {
+  Future stopRecording() async {
     final internalFilePath = await recorder.stopRecorder();
     if (internalFilePath != null) {
       //print(internalFilePath);
@@ -129,7 +129,7 @@ class _RecordScreenState extends State<RecordScreen> {
                                       await audioPlayer.stop();
                                       await audioPlayer.dispose();
                                       //start recording answer
-                                      await record();
+                                      await startRecording();
                                       //update state
                                       setState(() {
                                         isRecording = true;
@@ -169,7 +169,7 @@ class _RecordScreenState extends State<RecordScreen> {
                               onTap: !isRecording
                                   ? null // Disable onTap when not recording
                                   : () async {
-                                      await stop();
+                                      await stopRecording();
                                       setState(() {
                                         isRecording = false;
                                       });
