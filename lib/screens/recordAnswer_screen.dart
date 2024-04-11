@@ -4,7 +4,6 @@ import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound.dart';
-//import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 
 class RecordScreen extends StatefulWidget {
@@ -33,7 +32,6 @@ class _RecordScreenState extends State<RecordScreen> {
   @override
   void initState() {
     super.initState();
-    //initRecorder(); //behøver ikke at blive kaldt, da metoden er udkommenteret
     audioPlayer = AudioPlayer();
     playAudio(audioFiles[widget.index]);
     loadQuestionText(); // Load question text when screen initializes
@@ -41,19 +39,6 @@ class _RecordScreenState extends State<RecordScreen> {
     questionsAnswered = widget.index + 1;
     progress = questionsAnswered / totalQuestions;
   }
-
-//udkommenteret request delen, da den kan undværes
-/*
-  Future initRecorder() async {
-    final status = await Permission.microphone.request();
-
-    if (status != PermissionStatus.granted) {
-      throw 'Microphone permission not granted';
-    }
-
-    await recorder.openRecorder();
-  }
-*/
 
   Future<void> playAudio(path) async {
     await recorder.openRecorder();
