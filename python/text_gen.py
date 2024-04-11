@@ -23,6 +23,8 @@ pipe = pipeline(
     chunk_length_s=30,
     batch_size=16,
     return_timestamps=True,
+    # not necessary to successfully running our code
+    # but included to ensure compatibility with the model's input
     torch_dtype=torch_dtype,
     device=device,
 )
