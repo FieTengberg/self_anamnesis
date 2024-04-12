@@ -9,7 +9,7 @@ class IntroScreen extends StatefulWidget {
 }
 
 class IntroScreenState extends State<IntroScreen> {
-  String text = ""; //for display
+  String text = ""; //for displaying question
   AudioPlayer audioPlayer = AudioPlayer();
 
   @override
@@ -32,7 +32,7 @@ class IntroScreenState extends State<IntroScreen> {
       });
     } catch (e) {
       setState(() {
-        // Set text to an empty string in case of error
+        // Message in case of error
         text = 'It does not work!';
       });
     }
@@ -42,14 +42,12 @@ class IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     playAudio();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Intro Screen'),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Large square for text
+            // Large square containing intro text
             Container(
               width: 600,
               height: 300,
@@ -74,13 +72,12 @@ class IntroScreenState extends State<IntroScreen> {
             SizedBox(height: 40), // Spacer
 
             Center(
-              // Wrap the text with Center widget
+              // Wraping the intro text with Center widget
               child: Text(
                 'Tryk på knappen for at starte',
                 style: TextStyle(fontSize: 14),
               ),
             ),
-            // Pressable button
 
             SizedBox(height: 15), // Spacer
 

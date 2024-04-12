@@ -16,8 +16,10 @@ class RecordScreen extends StatefulWidget {
 }
 
 class _RecordScreenState extends State<RecordScreen> {
-  bool isRecording = false;
-  String questionString = "";
+  bool isRecording = false; // Flag to track recording status
+  bool _isInitialized = false; // Flag to track initialization status
+  String questionString =
+      ""; // Empty string for the current question to be added
   late AudioPlayer audioPlayer;
   late int questionsAnswered;
   late int totalQuestions;
@@ -27,15 +29,23 @@ class _RecordScreenState extends State<RecordScreen> {
   @override
   void initState() {
     super.initState();
-    initRecorder();
+
+    if (!_isInitialized) {
+      // Only initialize if not already initialized
+      initRecorder();
+      _isInitialized = true; // flag set to true after initialization
+    }
+
     totalQuestions = 2;
     questionsAnswered = widget.index + 1;
     audioPlayer = AudioPlayer();
+    progress = questionsAnswered / totalQuestions;
+
     playAudio(
         'audio_files/question$questionsAnswered.mp3'); // Call function for playing audio file
+
     loadQuestionText(
         'assets/text_strings/question$questionsAnswered.txt'); // Load question text
-    progress = questionsAnswered / totalQuestions;
   }
 
   Future initRecorder() async {
@@ -44,7 +54,6 @@ class _RecordScreenState extends State<RecordScreen> {
     if (status != PermissionStatus.granted) {
       throw 'Microphone permission not granted';
     }
-
     await recorder.openRecorder();
   }
 
@@ -88,9 +97,7 @@ class _RecordScreenState extends State<RecordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Record Screen'),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

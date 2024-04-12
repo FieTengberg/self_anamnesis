@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -8,7 +9,7 @@ class FinishScreen extends StatefulWidget {
 }
 
 class FinishScreenState extends State<FinishScreen> {
-  String text = ""; //for display
+  String text = ""; //for displaying the finish text
 
   Future<void> playAudio(path) async {
     await audioPlayer.play(AssetSource(path));
@@ -24,7 +25,7 @@ class FinishScreenState extends State<FinishScreen> {
       });
     } catch (e) {
       setState(() {
-        // Set text to an empty string in case of error
+        // message in case of error
         text = 'It does not work!';
       });
     }
@@ -43,14 +44,12 @@ class FinishScreenState extends State<FinishScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Finish Screen'),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Large square for text
+            // Large square containing finish text
             Container(
               width: 600,
               height: 300,
@@ -75,18 +74,19 @@ class FinishScreenState extends State<FinishScreen> {
             SizedBox(height: 40), // Spacer
 
             Center(
-              // Wrap the text with Center widget
+              // Wrapping the text with Center widget
               child: Text(
                 'Tryk på knappen for at afslutte',
                 style: TextStyle(fontSize: 14),
               ),
             ),
-            // Pressable button
 
             SizedBox(height: 15), // Spacer
 
             ElevatedButton(
-              onPressed: () {}, // Empty function body
+              onPressed: () {
+                exit(0); // Closing the application if pressed
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 minimumSize: Size(450, 50),

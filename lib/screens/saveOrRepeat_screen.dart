@@ -10,9 +10,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('SaveOrRepeat Screen'),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -82,7 +80,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                // Make the text-to-speech request
+                                // Navigate to either next question or finish screen
                                 if (index == 2 - 1) {
                                   Navigator.push(
                                     context,
@@ -128,7 +126,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
 
             SizedBox(height: 60), // Spacer
 
-            // Additional text
+            // Additional text at bottom
             Text(
               'Optagelsen af dit svar skal gemmes for at kunne komme videre til næste spørgsmål',
               style: TextStyle(
