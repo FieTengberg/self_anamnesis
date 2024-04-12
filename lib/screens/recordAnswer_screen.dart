@@ -1,11 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter_application_test/Record_model/audioRecord.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -18,7 +16,7 @@ class RecordScreen extends StatefulWidget {
 class _RecordScreenState extends State<RecordScreen>
     with SingleTickerProviderStateMixin {
   bool isRecording = false; // Flag to track recording status
-  bool _isInitialized = false; // Flag to track initialization status
+  bool isInitialized = false; // Flag to track initialization status
   String questionString =
       ""; // Empty string for the current question to be added
   late AudioPlayer audioPlayer;
@@ -26,19 +24,21 @@ class _RecordScreenState extends State<RecordScreen>
   late int totalQuestions;
   late double progress;
   final recorder = FlutterSoundRecorder();
-  late AnimationController _animationController;
+  late AnimationController animationController;
+  final AudioRecorder audioRecorder = AudioRecorder();
 
   @override
   void initState() {
-    _animationController =
+    animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
-    _animationController.repeat(reverse: true);
+    animationController.repeat(reverse: true);
+
     super.initState();
 
-    if (!_isInitialized) {
+    if (!isInitialized) {
       // Only initialize if not already initialized
-      initRecorder();
-      _isInitialized = true; // flag set to true after initialization
+      audioRecorder.initRecorder();
+      isInitialized = true; // flag set to true after initialization
     }
 
     totalQuestions = 2;
@@ -53,15 +53,6 @@ class _RecordScreenState extends State<RecordScreen>
         'assets/text_strings/question$questionsAnswered.txt'); // Load question text
   }
 
-  Future initRecorder() async {
-    final status = await Permission.microphone.request();
-
-    if (status != PermissionStatus.granted) {
-      throw 'Microphone permission not granted';
-    }
-    await recorder.openRecorder();
-  }
-
   Future<void> playAudio(path) async {
     await audioPlayer.play(AssetSource(path));
   }
@@ -71,32 +62,6 @@ class _RecordScreenState extends State<RecordScreen>
     setState(() {
       questionString = questionText;
     });
-  }
-
-  Future startRecording() async {
-    await recorder.startRecorder(toFile: 'audio');
-  }
-
-  Future stopRecording() async {
-    final internalFilePath = await recorder.stopRecorder();
-    if (internalFilePath != null) {
-      //print(internalFilePath);
-
-      final externalStoragePath = (await getExternalStorageDirectory())!.path;
-      //print(externalStoragePath);
-
-      try {
-        final newFilePath =
-            '$externalStoragePath/question$questionsAnswered.mp3'; // The path to which the file should be stored with name
-        //print('New file path: $newFilePath');
-        final internalFile = File(
-            internalFilePath); //The file which is copied from the internal path
-        await internalFile.copy(newFilePath); //coping the file
-        print('File copied to: $newFilePath');
-      } catch (e) {
-        print('Error copying file: $e');
-      }
-    }
   }
 
   @override
@@ -141,7 +106,7 @@ class _RecordScreenState extends State<RecordScreen>
                                       await audioPlayer.stop();
                                       await audioPlayer.dispose();
                                       //start recording answer
-                                      await startRecording();
+                                      await audioRecorder.startRecording();
                                       //update state
                                       setState(() {
                                         isRecording = true;
@@ -181,7 +146,8 @@ class _RecordScreenState extends State<RecordScreen>
                               onTap: !isRecording
                                   ? null // Disable onTap when not recording
                                   : () async {
-                                      await stopRecording();
+                                      await audioRecorder
+                                          .stopRecording(questionsAnswered);
                                       setState(() {
                                         isRecording = false;
                                       });
@@ -224,7 +190,7 @@ class _RecordScreenState extends State<RecordScreen>
                   ),
                   if (isRecording) // Show message only when recording is in progress
                     FadeTransition(
-                      opacity: _animationController,
+                      opacity: animationController,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
