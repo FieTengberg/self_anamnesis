@@ -49,7 +49,7 @@ class IntroScreenState extends State<IntroScreen> {
           children: [
             // Large square containing intro text
             Container(
-              width: 600,
+              width: 700,
               height: 300,
               decoration:
                   BoxDecoration(border: Border.all(color: Colors.black)),

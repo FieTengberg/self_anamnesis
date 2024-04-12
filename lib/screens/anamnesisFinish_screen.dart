@@ -51,7 +51,7 @@ class FinishScreenState extends State<FinishScreen> {
           children: [
             // Large square containing finish text
             Container(
-              width: 600,
+              width: 700,
               height: 300,
               decoration:
                   BoxDecoration(border: Border.all(color: Colors.black)),

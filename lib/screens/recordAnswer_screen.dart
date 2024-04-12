@@ -15,7 +15,8 @@ class RecordScreen extends StatefulWidget {
   _RecordScreenState createState() => _RecordScreenState();
 }
 
-class _RecordScreenState extends State<RecordScreen> {
+class _RecordScreenState extends State<RecordScreen>
+    with SingleTickerProviderStateMixin {
   bool isRecording = false; // Flag to track recording status
   bool _isInitialized = false; // Flag to track initialization status
   String questionString =
@@ -25,9 +26,13 @@ class _RecordScreenState extends State<RecordScreen> {
   late int totalQuestions;
   late double progress;
   final recorder = FlutterSoundRecorder();
+  late AnimationController _animationController;
 
   @override
   void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _animationController.repeat(reverse: true);
     super.initState();
 
     if (!_isInitialized) {
@@ -113,7 +118,7 @@ class _RecordScreenState extends State<RecordScreen> {
             // Large square container with black border
             Container(
               width: 800,
-              height: 250,
+              height: 300,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black),
               ),
@@ -159,7 +164,7 @@ class _RecordScreenState extends State<RecordScreen> {
                             Text(
                               'Start',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 color: isRecording ? Colors.grey : Colors.black,
                               ),
                             ),
@@ -208,7 +213,7 @@ class _RecordScreenState extends State<RecordScreen> {
                             Text(
                               'Stop',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 color: isRecording ? Colors.black : Colors.grey,
                               ),
                             ),
@@ -218,13 +223,17 @@ class _RecordScreenState extends State<RecordScreen> {
                     ],
                   ),
                   if (isRecording) // Show message only when recording is in progress
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Optagelsen er igang', // Your message here
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black, // Customize the color as needed
+                    FadeTransition(
+                      opacity: _animationController,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Optagelse igang',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),

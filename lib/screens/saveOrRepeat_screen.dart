@@ -26,7 +26,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
             // Large square container with black border
             Container(
               width: 800,
-              height: 250,
+              height: 300,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black),
               ),
