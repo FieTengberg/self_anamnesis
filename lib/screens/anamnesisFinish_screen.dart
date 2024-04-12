@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 
 class FinishScreen extends StatefulWidget {
   @override
@@ -10,10 +10,7 @@ class FinishScreen extends StatefulWidget {
 
 class FinishScreenState extends State<FinishScreen> {
   String text = ""; //for displaying the finish text
-
-  Future<void> playAudio(path) async {
-    await audioPlayer.play(AssetSource(path));
-  }
+  AnamnesisAudioPlayer audioPlayer = AnamnesisAudioPlayer();
 
   Future<void> getText() async {
     try {
@@ -31,13 +28,13 @@ class FinishScreenState extends State<FinishScreen> {
     }
   }
 
-  late AudioPlayer audioPlayer;
-
   @override
   void initState() {
     super.initState();
-    audioPlayer = AudioPlayer();
-    playAudio('audio_files/finish.mp3');
+    
+    audioPlayer.playAudio(
+        'audio_files/finish.mp3'); // Call function for playing audio file
+    
     getText();
   }
 

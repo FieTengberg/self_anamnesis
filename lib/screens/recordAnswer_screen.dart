@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:flutter_application_test/Record_model/audioRecord.dart';
-import 'package:flutter_application_test/CustomizedClasses/myAudioPlay.dart';
+import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioRecorder.dart';
+import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -19,13 +19,13 @@ class _RecordScreenState extends State<RecordScreen>
   bool isInitialized = false; // Flag to track initialization status
   String questionString =
       ""; // Empty string for the current question to be added
-  late MyAudioPlayer audioPlayer;
+  late AnamnesisAudioPlayer audioPlayer;
   late int questionsAnswered;
   late int totalQuestions;
   late double progress;
   final recorder = FlutterSoundRecorder();
   late AnimationController animationController;
-  final AudioRecorder audioRecorder = AudioRecorder();
+  final AnamnesisAudioRecorder audioRecorder = AnamnesisAudioRecorder();
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _RecordScreenState extends State<RecordScreen>
 
     totalQuestions = 2;
     questionsAnswered = widget.index + 1;
-    audioPlayer = MyAudioPlayer();
+    audioPlayer = AnamnesisAudioPlayer();
     progress = questionsAnswered / totalQuestions;
 
     audioPlayer.playAudio(
