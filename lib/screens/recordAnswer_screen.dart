@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_application_test/Record_model/audioRecord.dart';
+import 'package:flutter_application_test/CustomizedClasses/myAudioPlay.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -19,7 +19,7 @@ class _RecordScreenState extends State<RecordScreen>
   bool isInitialized = false; // Flag to track initialization status
   String questionString =
       ""; // Empty string for the current question to be added
-  late AudioPlayer audioPlayer;
+  late MyAudioPlayer audioPlayer;
   late int questionsAnswered;
   late int totalQuestions;
   late double progress;
@@ -43,18 +43,14 @@ class _RecordScreenState extends State<RecordScreen>
 
     totalQuestions = 2;
     questionsAnswered = widget.index + 1;
-    audioPlayer = AudioPlayer();
+    audioPlayer = MyAudioPlayer();
     progress = questionsAnswered / totalQuestions;
 
-    playAudio(
+    audioPlayer.playAudio(
         'audio_files/question$questionsAnswered.mp3'); // Call function for playing audio file
 
     loadQuestionText(
         'assets/text_strings/question$questionsAnswered.txt'); // Load question text
-  }
-
-  Future<void> playAudio(path) async {
-    await audioPlayer.play(AssetSource(path));
   }
 
   Future loadQuestionText(String path) async {
