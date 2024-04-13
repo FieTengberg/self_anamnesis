@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
+import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
 
 class FinishScreen extends StatefulWidget {
   @override
@@ -11,31 +11,22 @@ class FinishScreen extends StatefulWidget {
 class FinishScreenState extends State<FinishScreen> {
   String text = ""; //for displaying the finish text
   AnamnesisAudioPlayer audioPlayer = AnamnesisAudioPlayer();
-
-  Future<void> getText() async {
-    try {
-      String finishText;
-      finishText =
-          await rootBundle.loadString('assets/text_strings/finish.txt');
-      setState(() {
-        text = finishText;
-      });
-    } catch (e) {
-      setState(() {
-        // message in case of error
-        text = 'It does not work!';
-      });
-    }
-  }
+  TextForDisplay textString = TextForDisplay();
 
   @override
   void initState() {
     super.initState();
-    
+
     audioPlayer.playAudio(
         'audio_files/finish.mp3'); // Call function for playing audio file
-    
-    getText();
+
+    textString
+        .getText('assets/text_strings/finish.txt')
+        .then((String fetchedText) {
+      setState(() {
+        text = fetchedText; // Updating the state with the fetched text
+      });
+    });
   }
 
   @override

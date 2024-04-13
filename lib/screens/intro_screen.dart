@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
+import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -11,6 +11,7 @@ class IntroScreen extends StatefulWidget {
 class IntroScreenState extends State<IntroScreen> {
   String text = ""; //for displaying question
   AnamnesisAudioPlayer audioPlayer = AnamnesisAudioPlayer();
+  TextForDisplay textString = TextForDisplay();
 
   @override
   void initState() {
@@ -19,22 +20,13 @@ class IntroScreenState extends State<IntroScreen> {
     audioPlayer.playAudio(
         'audio_files/intro.mp3'); // Call function for playing audio file
 
-    getText();
-  }
-
-  Future<void> getText() async {
-    try {
-      String introText;
-      introText = await rootBundle.loadString('assets/text_strings/intro.txt');
+    textString
+        .getText('assets/text_strings/intro.txt')
+        .then((String fetchedText) {
       setState(() {
-        text = introText;
+        text = fetchedText; // Updating the state with the fetched text
       });
-    } catch (e) {
-      setState(() {
-        // Message in case of error
-        text = 'It does not work!';
-      });
-    }
+    });
   }
 
   @override

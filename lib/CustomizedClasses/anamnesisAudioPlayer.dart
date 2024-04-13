@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 
 class AnamnesisAudioPlayer {
-  late AudioPlayer audioPlayer ;
+  late AudioPlayer audioPlayer;
 
 
 Future<void> playAudio(path) async {

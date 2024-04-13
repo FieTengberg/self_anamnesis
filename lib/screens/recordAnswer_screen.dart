@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioRecorder.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
+import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -17,8 +17,7 @@ class _RecordScreenState extends State<RecordScreen>
     with SingleTickerProviderStateMixin {
   bool isRecording = false; // Flag to track recording status
   bool isInitialized = false; // Flag to track initialization status
-  String questionString =
-      ""; // Empty string for the current question to be added
+  String question = ""; // Empty string for the current question to be added
   late AnamnesisAudioPlayer audioPlayer;
   late int questionsAnswered;
   late int totalQuestions;
@@ -26,6 +25,7 @@ class _RecordScreenState extends State<RecordScreen>
   final recorder = FlutterSoundRecorder();
   late AnimationController animationController;
   final AnamnesisAudioRecorder audioRecorder = AnamnesisAudioRecorder();
+  TextForDisplay textString = TextForDisplay();
 
   @override
   void initState() {
@@ -49,14 +49,12 @@ class _RecordScreenState extends State<RecordScreen>
     audioPlayer.playAudio(
         'audio_files/question$questionsAnswered.mp3'); // Call function for playing audio file
 
-    loadQuestionText(
-        'assets/text_strings/question$questionsAnswered.txt'); // Load question text
-  }
-
-  Future loadQuestionText(String path) async {
-    String questionText = await rootBundle.loadString(path);
-    setState(() {
-      questionString = questionText;
+    textString
+        .getText('assets/text_strings/question$questionsAnswered.txt')
+        .then((String fetchedText) {
+      setState(() {
+        question = fetchedText; // Updating the state with the fetched text
+      });
     });
   }
 
@@ -70,7 +68,7 @@ class _RecordScreenState extends State<RecordScreen>
           children: [
             // Text: Question
             Text(
-              questionString,
+              question,
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
 
@@ -154,8 +152,7 @@ class _RecordScreenState extends State<RecordScreen>
                                             builder: (context) =>
                                                 SaveOrRepeatScreen(
                                                     index: widget.index,
-                                                    questionString:
-                                                        questionString)),
+                                                    questionString: question)),
                                       );
                                     },
                               child: Container(
