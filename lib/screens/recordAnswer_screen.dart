@@ -41,7 +41,7 @@ class _RecordScreenState extends State<RecordScreen>
       isInitialized = true; // flag set to true after initialization
     }
 
-    totalQuestions = 2;
+    totalQuestions = 7;
     questionsAnswered = widget.index + 1;
     audioPlayer = AnamnesisAudioPlayer();
     progress = questionsAnswered / totalQuestions;

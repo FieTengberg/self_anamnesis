@@ -81,7 +81,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 // Navigate to either next question or finish screen
-                                if (index == 2 - 1) {
+                                if (index == 6) {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
