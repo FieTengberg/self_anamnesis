@@ -10,7 +10,7 @@ headers = {
 }
 
 data = {
-  "text": "Tak! Dine svar bliver nu sendt videre til din fysioterapeut, som vil læse det igennem, inden du kaldes ind til videre undersøgelse og tests. I mellemtiden kan du finde dig til rette i venteværelset med et magasin og en kop te eller kaffe.",
+  "text": "Hvad har forårsaget dine sjener og hvor lang tid har du været generet af det, som du ønsker hjælp til? ",
   "model_id": "eleven_multilingual_v2",
   "voice_settings": {
     "stability": 0.5,
