@@ -4,6 +4,7 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioRecorder.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
+import 'package:flutter_application_test/app_colors.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -61,7 +62,6 @@ class _RecordScreenState extends State<RecordScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +69,7 @@ class _RecordScreenState extends State<RecordScreen>
             // Text: Question
             Text(
               question,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: AppColors.textColor),
             ),
 
             SizedBox(height: 60), // Spacer
@@ -79,7 +79,7 @@ class _RecordScreenState extends State<RecordScreen>
               width: 800,
               height: 300,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
+                border: Border.all(color: AppColors.backgroundColor),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -110,8 +110,8 @@ class _RecordScreenState extends State<RecordScreen>
                                 width: 100,
                                 height: 100,
                                 color: isRecording
-                                    ? Colors.green.withOpacity(0.5)
-                                    : Colors.green,
+                                    ? AppColors.playBtnColor.withOpacity(0.5)
+                                    : AppColors.playBtnColor,
                                 child: Icon(
                                   Icons.play_arrow,
                                   size: 60,
@@ -159,8 +159,8 @@ class _RecordScreenState extends State<RecordScreen>
                                 width: 100,
                                 height: 100,
                                 color: isRecording
-                                    ? Colors.red
-                                    : Colors.red.withOpacity(0.5),
+                                    ? AppColors.stopBtnColor
+                                    : AppColors.stopBtnColor.withOpacity(0.5),
                                 child: Icon(
                                   Icons.stop,
                                   size: 60,
@@ -214,7 +214,7 @@ class _RecordScreenState extends State<RecordScreen>
                     value:
                         progress, // Change this value dynamically based on user's progress
                     backgroundColor: const Color.fromARGB(255, 223, 220, 220),
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.btnColor),
                   ),
                 ),
 

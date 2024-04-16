@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
+import 'package:flutter_application_test/app_colors.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -32,7 +33,6 @@ class IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +52,7 @@ class IntroScreenState extends State<IntroScreen> {
                   children: [
                     Text(
                       text,
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20, color: AppColors.textColor),
                     ),
                   ],
                 ),
@@ -83,7 +83,7 @@ class IntroScreenState extends State<IntroScreen> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: AppColors.btnColor,
                 minimumSize: Size(450, 50),
               ),
               child: Text(

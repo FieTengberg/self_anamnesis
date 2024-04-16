@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/intro_screen.dart';
+import 'package:flutter_application_test/app_colors.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -13,10 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Self-anamnesis',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
-        useMaterial3: true,
-      ),
-      home: const LogInScreen(),
+        scaffoldBackgroundColor: AppColors.backgroundColor,
+        useMaterial3: true,),
+       home: const LogInScreen(),
     );
   }
 }
@@ -32,14 +32,12 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
       body: Center(
         child: Container(
           width: 400.0,
           height: 300.0,
           alignment: Alignment.bottomCenter, 
+        
           child: Column(
             children: [
               TextField(
@@ -58,7 +56,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: AppColors.btnColor,
                   minimumSize: const Size(450, 50),
                 ),
                 child: Text(
