@@ -3,6 +3,7 @@ import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
 import 'package:flutter_application_test/app_colors.dart';
+import 'package:flutter_application_test/bubble_text_widget.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -37,8 +38,9 @@ class IntroScreenState extends State<IntroScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            BubbleText(text: text),
             // Large square containing intro text
-            Container(
+            /*Container(
               width: 700,
               height: 300,
               decoration:
@@ -57,7 +59,7 @@ class IntroScreenState extends State<IntroScreen> {
                   ],
                 ),
               ),
-            ),
+            ),*/
 
             SizedBox(height: 40), // Spacer
 
