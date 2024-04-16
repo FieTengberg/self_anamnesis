@@ -26,9 +26,6 @@ class SaveOrRepeatScreen extends StatelessWidget {
             Container(
               width: 800,
               height: 300,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

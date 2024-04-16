@@ -69,7 +69,10 @@ class _RecordScreenState extends State<RecordScreen>
             // Text: Question
             Text(
               question,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: AppColors.textColor),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textColor),
             ),
 
             SizedBox(height: 60), // Spacer
@@ -78,9 +81,6 @@ class _RecordScreenState extends State<RecordScreen>
             Container(
               width: 800,
               height: 300,
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.backgroundColor),
-              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -214,7 +214,8 @@ class _RecordScreenState extends State<RecordScreen>
                     value:
                         progress, // Change this value dynamically based on user's progress
                     backgroundColor: const Color.fromARGB(255, 223, 220, 220),
-                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.btnColor),
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(AppColors.btnColor),
                   ),
                 ),
 

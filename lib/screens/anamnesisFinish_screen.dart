@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
+import 'package:flutter_application_test/app_colors.dart';
 
 class FinishScreen extends StatefulWidget {
   @override
@@ -41,8 +42,6 @@ class FinishScreenState extends State<FinishScreen> {
             Container(
               width: 700,
               height: 300,
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
               alignment: Alignment.center,
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
@@ -76,7 +75,7 @@ class FinishScreenState extends State<FinishScreen> {
                 exit(0); // Closing the application if pressed
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: AppColors.btnColor,
                 minimumSize: Size(450, 50),
               ),
               child: Text(
