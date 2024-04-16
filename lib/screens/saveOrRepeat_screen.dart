@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/bubble_text_widget.dart';
 import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 
@@ -15,12 +16,9 @@ class SaveOrRepeatScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Text: Question
-            Text(
-              questionString,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
+            BubbleText(text: questionString),
 
-            SizedBox(height: 60), // Spacer
+            SizedBox(height: 20), // Spacer
 
             // Large square container with black border
             Container(
@@ -47,8 +45,8 @@ class SaveOrRepeatScreen extends StatelessWidget {
                                             RecordScreen(index: index)));
                               },
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: 120,
+                                height: 120,
                                 color: Colors.green,
                                 child: Icon(
                                   Icons.play_arrow,
@@ -93,8 +91,8 @@ class SaveOrRepeatScreen extends StatelessWidget {
                                 }
                               },
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: 120,
+                                height: 120,
                                 color: Colors.blue,
                                 child: Icon(
                                   Icons.save,
@@ -120,13 +118,13 @@ class SaveOrRepeatScreen extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 60), // Spacer
+            SizedBox(height: 40), // Spacer
 
             // Additional text at bottom
             Text(
               'Optagelsen af dit svar skal gemmes for at kunne komme videre til næste spørgsmål',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 color: Colors.grey,
               ),
             ),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/bubble_text_widget.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioRecorder.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
 import 'package:flutter_application_test/app_colors.dart';
+import 'package:flutter_application_test/bubble_text_widget.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -67,15 +69,9 @@ class _RecordScreenState extends State<RecordScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Text: Question
-            Text(
-              question,
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textColor),
-            ),
+            BubbleText(text: question),
 
-            SizedBox(height: 60), // Spacer
+            SizedBox(height: 20), // Spacer
 
             // Large square container with black border
             Container(
@@ -107,8 +103,8 @@ class _RecordScreenState extends State<RecordScreen>
                                       });
                                     },
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: 120,
+                                height: 120,
                                 color: isRecording
                                     ? AppColors.playBtnColor.withOpacity(0.5)
                                     : AppColors.playBtnColor,
@@ -156,8 +152,8 @@ class _RecordScreenState extends State<RecordScreen>
                                       );
                                     },
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: 120,
+                                height: 120,
                                 color: isRecording
                                     ? AppColors.stopBtnColor
                                     : AppColors.stopBtnColor.withOpacity(0.5),
@@ -200,7 +196,7 @@ class _RecordScreenState extends State<RecordScreen>
               ),
             ),
 
-            SizedBox(height: 60), // Spacer
+            SizedBox(height: 40), // Spacer
 
             // Progress indicator
             Row(
@@ -209,7 +205,7 @@ class _RecordScreenState extends State<RecordScreen>
                 // Progress bar
                 Container(
                   width: 450,
-                  height: 10,
+                  height: 12,
                   child: LinearProgressIndicator(
                     value:
                         progress, // Change this value dynamically based on user's progress
@@ -224,7 +220,7 @@ class _RecordScreenState extends State<RecordScreen>
                 // Text displaying progress
                 Text(
                   'Du er nået til $questionsAnswered ud af $totalQuestions spørgsmål', // Change this text dynamically based on user's progress
-                  style: TextStyle(color: Colors.grey, fontSize: 18),
+                  style: TextStyle(color: Colors.grey, fontSize: 20),
                 ),
               ],
             ),

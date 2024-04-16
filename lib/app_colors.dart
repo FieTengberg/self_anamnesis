@@ -6,6 +6,5 @@ class AppColors {
   static const Color playBtnColor = Color(0xFF19AF5D);
   static const Color stopBtnColor = Color(0xFFE94B35);
   static const Color backgroundColor = Color(0xFFEFEBE9);
-  
-  
+  static const Color bubbleColor = Color(0xFFCFD8DC);
 }

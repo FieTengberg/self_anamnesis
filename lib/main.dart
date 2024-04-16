@@ -34,7 +34,7 @@ class _LogInScreenState extends State<LogInScreen> {
     return Scaffold(
       body: Center(
         child: Container(
-          width: 400.0,
+          width: 500.0,
           height: 300.0,
           alignment: Alignment.bottomCenter, 
         

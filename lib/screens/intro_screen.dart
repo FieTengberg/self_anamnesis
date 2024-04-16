@@ -39,27 +39,6 @@ class IntroScreenState extends State<IntroScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BubbleText(text: text),
-            // Large square containing intro text
-            /*Container(
-              width: 700,
-              height: 300,
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      text,
-                      style: TextStyle(fontSize: 20, color: AppColors.textColor),
-                    ),
-                  ],
-                ),
-              ),
-            ),*/
 
             SizedBox(height: 40), // Spacer
 

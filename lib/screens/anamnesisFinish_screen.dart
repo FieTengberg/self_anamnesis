@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
 import 'package:flutter_application_test/app_colors.dart';
+import 'package:flutter_application_test/bubble_text_widget.dart';
 
 class FinishScreen extends StatefulWidget {
   @override
@@ -33,32 +34,13 @@ class FinishScreenState extends State<FinishScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Large square containing finish text
-            Container(
-              width: 700,
-              height: 300,
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      text,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            BubbleText(text: text),
 
-            SizedBox(height: 40), // Spacer
+            SizedBox(height: 60), // Spacer
 
             Center(
               // Wrapping the text with Center widget
