@@ -68,15 +68,17 @@ class _RecordScreenState extends State<RecordScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 15), // Spacer
+
             // Text: Question
             BubbleText(text: question),
 
-            SizedBox(height: 20), // Spacer
+            SizedBox(height: 70), // Spacer
 
             // Large square container with black border
             Container(
               width: 800,
-              height: 300,
+              height: 200,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -177,8 +179,16 @@ class _RecordScreenState extends State<RecordScreen>
                       ),
                     ],
                   ),
-                  if (isRecording) // Show message only when recording is in progress
-                    FadeTransition(
+                ],
+              ),
+            ),
+
+            // Blinking text container
+            Container(
+              height:
+                  50.0, // Fixed space reserved for the text to appear when recording
+              child: isRecording
+                  ? FadeTransition(
                       opacity: animationController,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -191,12 +201,11 @@ class _RecordScreenState extends State<RecordScreen>
                           ),
                         ),
                       ),
-                    ),
-                ],
-              ),
+                    )
+                  : SizedBox(), // Empty SizedBox when not recording
             ),
 
-            SizedBox(height: 40), // Spacer
+            SizedBox(height: 60), // Spacer
 
             // Progress indicator
             Row(
@@ -208,7 +217,7 @@ class _RecordScreenState extends State<RecordScreen>
                   height: 12,
                   child: LinearProgressIndicator(
                     value:
-                        progress, // Change this value dynamically based on user's progress
+                        progress, // value changes dynamically based on user's progress
                     backgroundColor: const Color.fromARGB(255, 223, 220, 220),
                     valueColor:
                         AlwaysStoppedAnimation<Color>(AppColors.btnColor),
