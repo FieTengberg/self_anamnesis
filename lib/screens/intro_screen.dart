@@ -3,7 +3,8 @@ import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
 import 'package:flutter_application_test/app_colors.dart';
-import 'package:flutter_application_test/bubble_text_widget.dart';
+import 'package:flutter_application_test/text_bubble_display.dart';
+import 'package:flutter_application_test/logo_display.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -34,46 +35,56 @@ class IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BubbleText(text: text),
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BubbleText(text: text),
 
-            SizedBox(height: 40), // Spacer
+                SizedBox(height: 40), // Spacer
 
-            Center(
-              // Wraping the intro text with Center widget
-              child: Text(
-                'Tryk på knappen for at starte',
-                style: TextStyle(fontSize: 14),
-              ),
+                Center(
+                  // Wrapping the intro text with Center widget
+                  child: Text(
+                    'Tryk på knappen for at starte',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ),
+
+                SizedBox(height: 15), // Spacer
+
+                ElevatedButton(
+                  onPressed: () async {
+                    // Handle button press
+                    await audioPlayer.stop();
+                    await audioPlayer.dispose();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RecordScreen(index: 0)),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.btnColor,
+                    minimumSize: Size(450, 50),
+                  ),
+                  child: Text(
+                    'Start',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ],
             ),
-
-            SizedBox(height: 15), // Spacer
-
-            ElevatedButton(
-              onPressed: () async {
-                // Handle button press
-                await audioPlayer.stop();
-                await audioPlayer.dispose();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RecordScreen(index: 0)),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.btnColor,
-                minimumSize: Size(450, 50),
-              ),
-              child: Text(
-                'Start',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ],
-        ),
+          ),
+          Positioned(
+            left: 8.0, // adjust left position as needed
+            bottom: 0, // adjust bottom position as needed
+            child:
+                Logo(), // Add Logo widget outside of the main content container
+          ),
+        ],
       ),
     );
   }

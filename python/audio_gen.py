@@ -10,7 +10,7 @@ headers = {
 }
 
 data = {
-  "text": "Hvad har forårsaget dine sjener og hvor lang tid har du været generet af det, som du ønsker hjælp til? ",
+  "text": "I kan også komme og høre mig snakke noget mere. Hilsen den virtuelle assistent",
   "model_id": "eleven_multilingual_v2",
   "voice_settings": {
     "stability": 0.5,

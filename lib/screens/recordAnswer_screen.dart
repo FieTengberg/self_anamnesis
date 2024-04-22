@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_test/bubble_text_widget.dart';
+import 'package:flutter_application_test/text_bubble_display.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioRecorder.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
 import 'package:flutter_application_test/app_colors.dart';
-import 'package:flutter_application_test/bubble_text_widget.dart';
+import 'package:flutter_application_test/text_bubble_display.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
