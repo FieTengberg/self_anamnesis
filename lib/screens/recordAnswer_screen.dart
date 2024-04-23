@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_test/text_bubble_display.dart';
+import 'package:flutter_application_test/CustomizedClasses/text_bubble_display.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioRecorder.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
-import 'package:flutter_application_test/app_colors.dart';
-import 'package:flutter_application_test/text_bubble_display.dart';
+import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
+import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
 class RecordScreen extends StatefulWidget {
   final int index;
@@ -225,14 +225,21 @@ class _RecordScreenState extends State<RecordScreen>
                 ),
 
                 SizedBox(width: 20), // Spacer between progress bar and text
-
+                
                 // Text displaying progress
                 Text(
                   'Du er nået til $questionsAnswered ud af $totalQuestions spørgsmål', // Change this text dynamically based on user's progress
                   style: TextStyle(color: Colors.grey, fontSize: 20),
                 ),
+              
               ],
             ),
+              Positioned(
+            left: 8.0, // adjust left position as needed
+            bottom: 0, // adjust bottom position as needed
+            child:
+                Logo(), // Add Logo widget outside of the main content container
+          ),
           ],
         ),
       ),

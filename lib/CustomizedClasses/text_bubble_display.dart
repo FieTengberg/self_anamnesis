@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_test/app_colors.dart';
+import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
 
 class BubbleText extends StatelessWidget {
   final String text;

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_test/text_bubble_display.dart';
+import 'package:flutter_application_test/CustomizedClasses/text_bubble_display.dart';
 import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
+import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
 class SaveOrRepeatScreen extends StatelessWidget {
   final int index;
@@ -128,9 +129,16 @@ class SaveOrRepeatScreen extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
+             Positioned(
+            left: 8.0, // adjust left position as needed
+            bottom: 0, // adjust bottom position as needed
+            child:
+                Logo(), // Add Logo widget outside of the main content container
+          ),
           ],
         ),
       ),
+      
     );
   }
 }
