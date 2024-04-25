@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/intro_screen.dart';
-import 'package:flutter_application_test/app_colors.dart';
-import 'package:flutter_application_test/logo_display.dart';
+import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
+import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
 void main() async {
   runApp(const MyApp());

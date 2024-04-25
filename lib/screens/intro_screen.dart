@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
 import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
-import 'package:flutter_application_test/app_colors.dart';
-import 'package:flutter_application_test/text_bubble_display.dart';
-import 'package:flutter_application_test/logo_display.dart';
+import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
+import 'package:flutter_application_test/CustomizedClasses/text_bubble_display.dart';
+import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
 class IntroScreen extends StatefulWidget {
   @override

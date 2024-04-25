@@ -129,16 +129,9 @@ class SaveOrRepeatScreen extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
-             Positioned(
-            left: 8.0, // adjust left position as needed
-            bottom: 0, // adjust bottom position as needed
-            child:
-                Logo(), // Add Logo widget outside of the main content container
-          ),
           ],
         ),
       ),
-      
     );
   }
 }

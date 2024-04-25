@@ -225,21 +225,14 @@ class _RecordScreenState extends State<RecordScreen>
                 ),
 
                 SizedBox(width: 20), // Spacer between progress bar and text
-                
+
                 // Text displaying progress
                 Text(
                   'Du er nået til $questionsAnswered ud af $totalQuestions spørgsmål', // Change this text dynamically based on user's progress
                   style: TextStyle(color: Colors.grey, fontSize: 20),
                 ),
-              
               ],
             ),
-              Positioned(
-            left: 8.0, // adjust left position as needed
-            bottom: 0, // adjust bottom position as needed
-            child:
-                Logo(), // Add Logo widget outside of the main content container
-          ),
           ],
         ),
       ),
