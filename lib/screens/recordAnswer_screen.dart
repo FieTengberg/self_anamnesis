@@ -68,7 +68,7 @@ class _RecordScreenState extends State<RecordScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 15), // Spacer
+            SizedBox(height: 100), // Spacer
 
             // Text: Question
             BubbleText(text: question),
@@ -78,7 +78,7 @@ class _RecordScreenState extends State<RecordScreen>
             // Large square container with black border
             Container(
               width: 800,
-              height: 200,
+              height: 170,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -205,31 +205,48 @@ class _RecordScreenState extends State<RecordScreen>
                   : SizedBox(), // Empty SizedBox when not recording
             ),
 
-            SizedBox(height: 60), // Spacer
+            SizedBox(height: 20), // Spacer
 
-            // Progress indicator
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            // Progress indicator and logo
+            Stack(
+              alignment: Alignment.bottomLeft,
               children: [
-                // Progress bar
                 Container(
-                  width: 450,
-                  height: 12,
-                  child: LinearProgressIndicator(
-                    value:
-                        progress, // value changes dynamically based on user's progress
-                    backgroundColor: const Color.fromARGB(255, 223, 220, 220),
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(AppColors.btnColor),
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Logo(), //logo
+                      SizedBox(
+                          width: 20), // Spacer between logo and progress bar
+
+                      // Progress bar
+                      Container(
+                        width: 450,
+                        height: 12,
+                        child: LinearProgressIndicator(
+                          value:
+                              progress, // value changes dynamically based on user's progress
+                          backgroundColor:
+                              const Color.fromARGB(255, 223, 220, 220),
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(AppColors.btnColor),
+                        ),
+                      ),
+
+                      SizedBox(
+                          width: 20), // Spacer between progress bar and text
+
+                      // Text displaying progress
+                      Text(
+                        'Du er nået til $questionsAnswered ud af $totalQuestions spørgsmål', // Change this text dynamically based on user's progress
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      ),
+                      SizedBox(
+                          width: 200), // Spacer between progress bar and text
+                    ],
                   ),
-                ),
-
-                SizedBox(width: 20), // Spacer between progress bar and text
-
-                // Text displaying progress
-                Text(
-                  'Du er nået til $questionsAnswered ud af $totalQuestions spørgsmål', // Change this text dynamically based on user's progress
-                  style: TextStyle(color: Colors.grey, fontSize: 20),
                 ),
               ],
             ),

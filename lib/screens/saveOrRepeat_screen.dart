@@ -16,15 +16,17 @@ class SaveOrRepeatScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 100), // Spacer
+
             // Text: Question
             BubbleText(text: questionString),
 
-            SizedBox(height: 20), // Spacer
+            SizedBox(height: 50), // Spacer
 
             // Large square container with black border
             Container(
               width: 800,
-              height: 300,
+              height: 200,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -119,15 +121,33 @@ class SaveOrRepeatScreen extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 40), // Spacer
+            SizedBox(height: 60), // Spacer
 
-            // Additional text at bottom
-            Text(
-              'Optagelsen af dit svar skal gemmes for at kunne komme videre til næste spørgsmål',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.grey,
-              ),
+            // Additional text at bottom wrapped in a row with logo
+            Stack(
+              alignment: Alignment.bottomLeft,
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Logo(),
+                      SizedBox(width: 30), // Spacer
+                      Expanded(
+                        child: Text(
+                          'Optagelsen af dit svar skal gemmes for at kunne komme videre til næste spørgsmål',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),

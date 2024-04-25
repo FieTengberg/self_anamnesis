@@ -71,8 +71,8 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
           ),
           Positioned(
-            left: 8.0, // adjust left position as needed
-            bottom: 0.2, // adjust bottom position as needed
+            left: 30, // adjust left position as needed
+            bottom: 0.8, // adjust bottom position as needed
             child:
                 Logo(), // Add Logo widget outside of the main content container
           ),
