@@ -36,13 +36,20 @@ class _LogInScreenState extends State<LogInScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Center(
+          Align(
+            alignment: Alignment.topCenter,
             child: Container(
               width: 500.0,
-              height: 300.0,
+              height: 800.0,
               alignment: Alignment.bottomCenter,
               child: Column(
                 children: [
+                  SizedBox(height: 20),
+                  Image.asset(
+                    'assets/logo.png',
+                    width: 350,
+                    height: 350,
+                  ),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Indtast dit navn',
@@ -69,12 +76,6 @@ class _LogInScreenState extends State<LogInScreen> {
                 ],
               ),
             ),
-          ),
-          Positioned(
-            left: 30, // adjust left position as needed
-            bottom: 0.8, // adjust bottom position as needed
-            child:
-                Logo(), // Add Logo widget outside of the main content container
           ),
         ],
       ),
