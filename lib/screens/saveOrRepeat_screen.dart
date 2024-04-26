@@ -16,7 +16,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 100), // Spacer
+            SizedBox(height: 90), // Spacer
 
             // Text: Question
             BubbleText(text: questionString),
@@ -121,7 +121,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 60), // Spacer
+            SizedBox(height: 35), // Spacer
 
             // Additional text at bottom wrapped in a row with logo
             Stack(

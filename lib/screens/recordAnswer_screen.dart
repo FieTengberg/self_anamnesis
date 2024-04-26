@@ -68,12 +68,12 @@ class _RecordScreenState extends State<RecordScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 100), // Spacer
+            SizedBox(height: 90), // Spacer
 
             // Text: Question
             BubbleText(text: question),
 
-            SizedBox(height: 70), // Spacer
+            SizedBox(height: 65), // Spacer
 
             // Large square container with black border
             Container(
@@ -205,7 +205,7 @@ class _RecordScreenState extends State<RecordScreen>
                   : SizedBox(), // Empty SizedBox when not recording
             ),
 
-            SizedBox(height: 20), // Spacer
+            //SizedBox(height: 10), // Spacer
 
             // Progress indicator and logo
             Stack(
