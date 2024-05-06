@@ -34,50 +34,50 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              width: 500.0,
-              height: 800.0,
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                children: [
-                  SizedBox(height: 20),
-                  Image.asset(
-                    'assets/logo.png',
-                    width: 350,
-                    height: 350,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Indtast dit navn',
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => IntroScreen()),
-                        //playAudio();
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.btnColor,
-                      minimumSize: const Size(450, 50),
-                    ),
-                    child: Text(
-                      'Log ind',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          decoration: BoxDecoration(
+            color: AppColors.backgroundColor,
           ),
-        ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/logo.png',
+                width: 350,
+                height: 350,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                    labelText: 'Indtast dit navn',
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 550.0, vertical: 15.0)),
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => IntroScreen()),
+                    //playAudio();
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.btnColor,
+                  minimumSize: const Size(450, 50),
+                ),
+                child: Text(
+                  'Log ind',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+              SizedBox(height: 170)
+            ],
+          ),
+        ),
       ),
     );
   }
