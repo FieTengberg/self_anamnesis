@@ -4,9 +4,12 @@ import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
 import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
+// SaveOrRepeatScreen widget for displaying options to save or repeat a recorded answer
 class SaveOrRepeatScreen extends StatelessWidget {
   final int index;
   final String questionString;
+
+  // Constructor with required parameters
   SaveOrRepeatScreen({required this.index, required this.questionString});
 
   @override
@@ -18,12 +21,12 @@ class SaveOrRepeatScreen extends StatelessWidget {
           children: [
             SizedBox(height: 90), // Spacer
 
-            // Text: Question
+            // Displaying the question text using BubbleText widget
             BubbleText(text: questionString),
 
             SizedBox(height: 50), // Spacer
 
-            // Large square container with black border
+            // Large container for buttons
             Container(
               width: 800,
               height: 200,
@@ -33,7 +36,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Green square for play again symbol
+                      // Green square button for recording new answer
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +73,7 @@ class SaveOrRepeatScreen extends StatelessWidget {
                         ),
                       ),
 
-                      // Blue square for save button
+                      // Blue button for saving the recorded answer
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

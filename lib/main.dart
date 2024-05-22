@@ -3,10 +3,12 @@ import 'package:flutter_application_test/screens/intro_screen.dart';
 import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
 import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
+// Entry point of the application
 void main() async {
   runApp(const MyApp());
 }
 
+// MyApp widget, the root of the application
 class MyApp extends StatelessWidget {
   const MyApp({Key? key});
 
@@ -18,11 +20,13 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.backgroundColor,
         useMaterial3: true,
       ),
+      // Setting the initial route to the login screen
       home: const LogInScreen(),
     );
   }
 }
 
+// LogInScreen widget, responsible for the login UI
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key});
 
@@ -34,6 +38,7 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Allowing the screen content to be scrolled vertically if needed with SingleChildScrollView
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
@@ -50,6 +55,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 width: 350,
                 height: 350,
               ),
+              // Text field for entering the user's name
               TextField(
                 decoration: InputDecoration(
                     labelText: 'Indtast dit navn',
@@ -59,6 +65,7 @@ class _LogInScreenState extends State<LogInScreen> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () async {
+                  // Navigating to the IntroScreen upon button press
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => IntroScreen()),

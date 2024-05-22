@@ -8,6 +8,7 @@ import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
 import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
 import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
+// RecordScreen widget for recording answers to questions
 class RecordScreen extends StatefulWidget {
   final int index;
   RecordScreen({required this.index});
@@ -16,11 +17,15 @@ class RecordScreen extends StatefulWidget {
   _RecordScreenState createState() => _RecordScreenState();
 }
 
+// State class for the RecordScreen widget
 class _RecordScreenState extends State<RecordScreen>
     with SingleTickerProviderStateMixin {
   bool isRecording = false; // Flag to track recording status
   bool isInitialized = false; // Flag to track initialization status
+
   String question = ""; // Empty string for the current question to be added
+
+  // Instances for audio player and recorder
   late AnamnesisAudioPlayer audioPlayer;
   late int questionsAnswered;
   late int totalQuestions;
@@ -32,23 +37,25 @@ class _RecordScreenState extends State<RecordScreen>
 
   @override
   void initState() {
+    // Initializing animation controller
     animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
     animationController.repeat(reverse: true);
 
     super.initState();
 
+    // Only initialize recorder if not already initialized
     if (!isInitialized) {
-      // Only initialize if not already initialized
       audioRecorder.initRecorder();
       isInitialized = true; // flag set to true after initialization
     }
 
     totalQuestions = 7;
     questionsAnswered = widget.index + 1;
-    audioPlayer = AnamnesisAudioPlayer();
     progress = questionsAnswered / totalQuestions;
 
+    // Initializing audio player and playing current question audio
+    audioPlayer = AnamnesisAudioPlayer();
     audioPlayer.playAudio(
         'audio_files/question$questionsAnswered.mp3'); // Call function for playing audio file
 
