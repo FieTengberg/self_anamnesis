@@ -6,23 +6,29 @@ import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
 import 'package:flutter_application_test/CustomizedClasses/text_bubble_display.dart';
 import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
+// Defining the IntroScreen widget as a StatefulWidget
 class IntroScreen extends StatefulWidget {
   @override
   IntroScreenState createState() => IntroScreenState();
 }
 
+// Defining the state for the IntroScreen widget
 class IntroScreenState extends State<IntroScreen> {
-  String text = ""; //for displaying question
-  AnamnesisAudioPlayer audioPlayer = AnamnesisAudioPlayer();
-  TextForDisplay textString = TextForDisplay();
+  String text = ""; // Variable to hold the text for displaying the intro
+  AnamnesisAudioPlayer audioPlayer =
+      AnamnesisAudioPlayer(); // Audio player instance
+  TextForDisplay textString = TextForDisplay(); // Text loader instance
 
+  // Overriding the initState method to perform initializations
   @override
   void initState() {
     super.initState();
 
+    // Play the introduction audio
     audioPlayer.playAudio(
-        'audio_files/intro.mp3'); // Call function for playing audio file
+        'audio_files/intro.mp3'); // playAudio function for playing audio file
 
+    // Using Text loader instance to load intro text from the specified path
     textString
         .getText('assets/text_strings/intro.txt')
         .then((String fetchedText) {
@@ -41,21 +47,25 @@ class IntroScreenState extends State<IntroScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // Display the intro text in a bubble
                 BubbleText(text: text),
                 SizedBox(height: 40),
                 Center(
-                  // Wrapping the intro text with Center widget
                   child: Text(
                     'Tryk på knappen for at starte',
                     style: TextStyle(fontSize: 14),
                   ),
                 ),
+
                 SizedBox(height: 15),
+
                 ElevatedButton(
                   onPressed: () async {
-                    // Handle button press
+                    // Stop and dispose the audio player when the button is pressed
                     await audioPlayer.stop();
                     await audioPlayer.dispose();
+
+                    // Navigating to RecordScreen
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -74,11 +84,13 @@ class IntroScreenState extends State<IntroScreen> {
               ],
             ),
           ),
+
+          // Position the logo at the bottom-left of the screen
           Positioned(
-            left: 30, // adjust left position as needed
-            bottom: 0.8, // adjust bottom position as needed
+            left: 30, 
+            bottom: 0.8, 
             child:
-                Logo(), // Add Logo widget outside of the main content container
+                Logo(), // Logo widget 
           ),
         ],
       ),

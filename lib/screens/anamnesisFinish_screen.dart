@@ -6,16 +6,21 @@ import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
 import 'package:flutter_application_test/CustomizedClasses/text_bubble_display.dart';
 import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
+// Defining the FinishScreen widget as a StatefulWidget
 class FinishScreen extends StatefulWidget {
   @override
   FinishScreenState createState() => FinishScreenState();
 }
 
+// Defining the state for the FinishScreen widget
 class FinishScreenState extends State<FinishScreen> {
-  String text = ""; //for displaying the finish text
-  AnamnesisAudioPlayer audioPlayer = AnamnesisAudioPlayer();
-  TextForDisplay textString = TextForDisplay();
+  String text =
+      ""; // Variable to hold the text for displaying the final message
+  AnamnesisAudioPlayer audioPlayer =
+      AnamnesisAudioPlayer(); // Audio player instance
+  TextForDisplay textString = TextForDisplay(); // Text loader instance
 
+  // Overriding the initState method to perform initializations
   @override
   void initState() {
     super.initState();
@@ -23,6 +28,7 @@ class FinishScreenState extends State<FinishScreen> {
     audioPlayer.playAudio(
         'audio_files/finish.mp3'); // Call function for playing audio file
 
+    // Using Text loader instance to load intro text from the specified path
     textString
         .getText('assets/text_strings/finish.txt')
         .then((String fetchedText) {
@@ -41,9 +47,10 @@ class FinishScreenState extends State<FinishScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // Display the final message text in a bubble
                 BubbleText(text: text),
 
-                SizedBox(height: 60), // Spacer
+                SizedBox(height: 60),
 
                 Center(
                   // Wrapping the text with Center widget
@@ -53,7 +60,7 @@ class FinishScreenState extends State<FinishScreen> {
                   ),
                 ),
 
-                SizedBox(height: 15), // Spacer
+                SizedBox(height: 15),
 
                 ElevatedButton(
                   onPressed: () {
@@ -71,11 +78,12 @@ class FinishScreenState extends State<FinishScreen> {
               ],
             ),
           ),
+
+          // Position the logo at the bottom-left of the screen
           Positioned(
-            left: 8.0, // adjust left position as needed
-            bottom: 0, // adjust bottom position as needed
-            child:
-                Logo(), // Add Logo widget outside of the main content container
+            left: 8.0,
+            bottom: 0,
+            child: Logo(), // Logo widget
           ),
         ],
       ),
