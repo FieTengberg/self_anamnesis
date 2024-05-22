@@ -42,9 +42,7 @@ class IntroScreenState extends State<IntroScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 BubbleText(text: text),
-
-                SizedBox(height: 40), // Spacer
-
+                SizedBox(height: 40),
                 Center(
                   // Wrapping the intro text with Center widget
                   child: Text(
@@ -52,9 +50,7 @@ class IntroScreenState extends State<IntroScreen> {
                     style: TextStyle(fontSize: 14),
                   ),
                 ),
-
-                SizedBox(height: 15), // Spacer
-
+                SizedBox(height: 15),
                 ElevatedButton(
                   onPressed: () async {
                     // Handle button press

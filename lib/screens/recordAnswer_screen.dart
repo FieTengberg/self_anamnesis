@@ -27,12 +27,16 @@ class _RecordScreenState extends State<RecordScreen>
 
   // Instances for audio player and recorder
   late AnamnesisAudioPlayer audioPlayer;
-  late int questionsAnswered;
-  late int totalQuestions;
-  late double progress;
   final recorder = FlutterSoundRecorder();
   late AnimationController animationController;
   final AnamnesisAudioRecorder audioRecorder = AnamnesisAudioRecorder();
+
+  //Instances of other variables initialized and used later in the code
+  late int questionsAnswered;
+  final int totalQuestions = 7; //fixed number of questions in prototype
+  late double progress;
+
+  //Initializing widget for fetching question in text
   TextForDisplay textString = TextForDisplay();
 
   @override
@@ -50,7 +54,7 @@ class _RecordScreenState extends State<RecordScreen>
       isInitialized = true; // flag set to true after initialization
     }
 
-    totalQuestions = 7;
+    //Intializing variables for progress bar calculation and other
     questionsAnswered = widget.index + 1;
     progress = questionsAnswered / totalQuestions;
 
@@ -59,6 +63,7 @@ class _RecordScreenState extends State<RecordScreen>
     audioPlayer.playAudio(
         'audio_files/question$questionsAnswered.mp3'); // Call function for playing audio file
 
+    //fetching text for current question
     textString
         .getText('assets/text_strings/question$questionsAnswered.txt')
         .then((String fetchedText) {
@@ -75,14 +80,14 @@ class _RecordScreenState extends State<RecordScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 90), // Spacer
+            SizedBox(height: 90),
 
-            // Text: Question
+            // Displaying the question text using BubbleText widget
             BubbleText(text: question),
 
-            SizedBox(height: 65), // Spacer
+            SizedBox(height: 65),
 
-            // Large square container with black border
+            // Large square container with buttons
             Container(
               width: 800,
               height: 170,
@@ -92,7 +97,7 @@ class _RecordScreenState extends State<RecordScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Green square for play symbol
+                      // Green square for recording answer
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -104,8 +109,10 @@ class _RecordScreenState extends State<RecordScreen>
                                       //stop and dispose question reading if recording started
                                       await audioPlayer.stop();
                                       await audioPlayer.dispose();
+
                                       //start recording answer
                                       await audioRecorder.startRecording();
+
                                       //update state
                                       setState(() {
                                         isRecording = true;
@@ -124,7 +131,7 @@ class _RecordScreenState extends State<RecordScreen>
                                 ),
                               ),
                             ),
-                            SizedBox(height: 5), // Spacer
+                            SizedBox(height: 5),
                             Text(
                               'Start',
                               style: TextStyle(
@@ -136,7 +143,7 @@ class _RecordScreenState extends State<RecordScreen>
                         ),
                       ),
 
-                      // Red square for stop button
+                      // Red square for stopping recording
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +157,7 @@ class _RecordScreenState extends State<RecordScreen>
                                       setState(() {
                                         isRecording = false;
                                       });
-                                      // Navigate to the other screen
+                                      // Navigate to SaveOrRepeatScreen
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -173,7 +180,7 @@ class _RecordScreenState extends State<RecordScreen>
                                 ),
                               ),
                             ),
-                            SizedBox(height: 5), // Spacer
+                            SizedBox(height: 5),
                             Text(
                               'Stop',
                               style: TextStyle(
@@ -190,7 +197,7 @@ class _RecordScreenState extends State<RecordScreen>
               ),
             ),
 
-            // Blinking text container
+            // Blinking text container indicating recording active
             Container(
               height:
                   50.0, // Fixed space reserved for the text to appear when recording
@@ -212,8 +219,6 @@ class _RecordScreenState extends State<RecordScreen>
                   : SizedBox(), // Empty SizedBox when not recording
             ),
 
-            //SizedBox(height: 10), // Spacer
-
             // Progress indicator and logo
             Stack(
               alignment: Alignment.bottomLeft,
@@ -228,7 +233,7 @@ class _RecordScreenState extends State<RecordScreen>
                       SizedBox(
                           width: 20), // Spacer between logo and progress bar
 
-                      // Progress bar
+                      // Progress bar indicating user's progress
                       Container(
                         width: 450,
                         height: 12,
@@ -247,11 +252,11 @@ class _RecordScreenState extends State<RecordScreen>
 
                       // Text displaying progress
                       Text(
-                        'Du er nået til $questionsAnswered ud af $totalQuestions spørgsmål', // Change this text dynamically based on user's progress
+                        'Du er nået til $questionsAnswered ud af $totalQuestions spørgsmål', // Changes dynamically
                         style: TextStyle(color: Colors.grey, fontSize: 20),
                       ),
                       SizedBox(
-                          width: 200), // Spacer between progress bar and text
+                          width: 200), // Spacer between text and right border
                     ],
                   ),
                 ),
