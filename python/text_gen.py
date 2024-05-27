@@ -28,8 +28,7 @@ pipe = pipeline(
     chunk_length_s=30,
     batch_size=16,
     return_timestamps=True,
-    # the below is not necessary to successfully running our code
-    # but included to ensure compatibility with the model's input
+    # the below is not necessary to successfully running our code but included to ensure compatibility with the model's input
     torch_dtype=datatype,
     device=device,
 )
@@ -38,13 +37,11 @@ pipe = pipeline(
 audio_file_path = os.path.join("..", "data", "audio_data_files", "marie4.mp3")
 with open(audio_file_path, "rb") as audio_file:
     sample = audio_file.read()
-
 # Running the automatic speech recognition pipeline on the audio sample
 result = pipe(sample)
 transcribed_text = result["text"]
-
 # Writing the transcribed text to a text file
 with open("transcribed_text.txt", "w", encoding="utf-8") as file:
     file.write(transcribed_text)
 
-print("Transcribed text has been written to 'transcribed_text.txt'.")
+

@@ -26,7 +26,6 @@ data = {
 
 # Sending a POST request to the API endpoint with the specified data and headers
 response = requests.post(url, json=data, headers=headers)
-
 # Writing the received audio content to an output file
 with open('output.mp3', 'wb') as f:
     # Streaming the response content in chunks and writing to the output file
