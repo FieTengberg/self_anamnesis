@@ -10,6 +10,7 @@ url = "https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM"
 headers = {
   "Accept": "audio/mpeg",
   "Content-Type": "application/json",
+  #not active key anymore, but was utilized in the project
   "xi-api-key": "50c3b39252b5ddfc0816eea3d64641f5"
 }
 
