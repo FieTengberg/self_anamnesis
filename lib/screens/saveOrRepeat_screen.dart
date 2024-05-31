@@ -1,88 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/CustomizedClasses/text_bubble_display.dart';
 import 'package:flutter_application_test/screens/anamnesisFinish_screen.dart';
 import 'package:flutter_application_test/screens/recordAnswer_screen.dart';
-import 'package:flutter_application_test/NLP_models/ElevenLabTTS.dart';
-import 'package:flutter_application_test/screens/intro_screen.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
-
-const questionText = [
-  'assets/text_strings/question1.txt',
-  'assets/text_strings/question2.txt'
-];
-class SaveOrRepeatScreen extends StatefulWidget {
+// SaveOrRepeatScreen widget for displaying options to save or repeat a recorded answer
+class SaveOrRepeatScreen extends StatelessWidget {
   final int index;
-  late String text; // Store question text here
-  SaveOrRepeatScreen({required this.index});
-  @override
-  _SaveOrRepeatScreenState createState() => _SaveOrRepeatScreenState();
-}
+  final String questionString;
 
-class _SaveOrRepeatScreenState extends State<SaveOrRepeatScreen> {
-   String text = ""; // Store question text here
-
- 
-  
-  Future<void> loadQuestionText() async {
-    try {
-      String question;
-      question = await rootBundle.loadString(questionText[widget.index]);
-      setState(() {
-        text = question;
-      });
-    } catch (e) {
-      setState(() {
-        // Set text to an empty string in case of error
-        text = 'It does not work!';
-      });
-    }
-  }
-    @override
-  void initState() {
-    super.initState();
-    loadQuestionText(); // Load question text when screen initializes
-  }
+  // Constructor with required parameters
+  SaveOrRepeatScreen({required this.index, required this.questionString});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('SaveOrRepeat Screen'),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Text: Question
-            Text(
-              text,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10), // Spacer
-            // Text: Added explanation
-            /*Text(
-              '',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),*/
+            SizedBox(height: 90), // Spacer
+
+            // Displaying the question text using BubbleText widget
+            BubbleText(text: questionString),
 
             SizedBox(height: 50), // Spacer
 
-            // Large square container with black border
+            // Large container for buttons
             Container(
               width: 800,
-              height: 250,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-              ),
+              height: 200,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Green square for play again symbol
+                      // Green square button for recording new answer
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -94,11 +48,11 @@ class _SaveOrRepeatScreenState extends State<SaveOrRepeatScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            RecordScreen(index: widget.index)));
+                                            RecordScreen(index: index)));
                               },
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: 120,
+                                height: 120,
                                 color: Colors.green,
                                 child: Icon(
                                   Icons.play_arrow,
@@ -119,17 +73,15 @@ class _SaveOrRepeatScreenState extends State<SaveOrRepeatScreen> {
                         ),
                       ),
 
-                      // Blue square for save button
+                      // Blue button for saving the recorded answer
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
                               onTap: () {
-                                // Make the text-to-speech request
-                                if (widget.index == questionText.length -1) {
-                                  print(widget.index);
-                                  print(questionText.length);
+                                // Navigate to either next question or finish screen
+                                if (index == 6) {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -140,13 +92,13 @@ class _SaveOrRepeatScreenState extends State<SaveOrRepeatScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            RecordScreen(index: widget.index + 1)),
+                                            RecordScreen(index: index + 1)),
                                   );
                                 }
                               },
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: 120,
+                                height: 120,
                                 color: Colors.blue,
                                 child: Icon(
                                   Icons.save,
@@ -172,15 +124,33 @@ class _SaveOrRepeatScreenState extends State<SaveOrRepeatScreen> {
               ),
             ),
 
-            SizedBox(height: 60), // Spacer
+            SizedBox(height: 35), // Spacer
 
-            // Additional text
-            Text(
-              'Optagelsen af dit svar skal gemmes for at kunne komme videre til næste spørgsmål',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.grey,
-              ),
+            // Additional text at bottom wrapped in a row with logo
+            Stack(
+              alignment: Alignment.bottomLeft,
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Logo(),
+                      SizedBox(width: 30), // Spacer
+                      Expanded(
+                        child: Text(
+                          'Optagelsen af dit svar skal gemmes for at kunne komme videre til næste spørgsmål',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),

@@ -1,37 +1,34 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/screens/intro_screen.dart';
-import 'NLP_models/ElevenLabTTS.dart';
-import 'package:logging/logging.dart';
+import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
+import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
-
+// Entry point of the application
 void main() async {
   runApp(const MyApp());
-  
 }
 
-
+// MyApp widget, the root of the application
 class MyApp extends StatelessWidget {
   const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Self-anamnesis',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+        scaffoldBackgroundColor: AppColors.backgroundColor,
         useMaterial3: true,
       ),
-      home: const LogInScreen(title: 'Self-anamnesis'),
+      // Setting the initial route to the login screen
+      home: const LogInScreen(),
     );
   }
 }
 
+// LogInScreen widget, responsible for the login UI
 class LogInScreen extends StatefulWidget {
-  const LogInScreen({Key? key, required this.title});
-
-  final String title;
+  const LogInScreen({Key? key});
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -41,37 +38,42 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
+      // Allowing the screen content to be scrolled vertically if needed with SingleChildScrollView
+      body: SingleChildScrollView(
         child: Container(
-          width: 400.0,
-          height: 300.0,
-          alignment: Alignment.bottomCenter, // Align content to the bottom
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          decoration: BoxDecoration(
+            color: AppColors.backgroundColor,
+          ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset(
+                'assets/logo.png',
+                width: 350,
+                height: 350,
+              ),
+              // Text field for entering the user's name
               TextField(
                 decoration: InputDecoration(
-                  labelText: 'Indtast dit CPR nummer',
-                ),
+                    labelText: 'Indtast dit navn',
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 550.0, vertical: 15.0)),
               ),
-              const SizedBox(
-                  height: 30), // Adding space between TextField and Button
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () async {
-                  // Handle button press
-                  // Make the text-to-speech request
-                  //TextToSpeechState textProvider = TextToSpeechState();
-                  //textProvider.locateIndexInJsonFile(0);
+                  // Navigating to the IntroScreen upon button press
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => IntroScreen()),
+                    //playAudio();
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: AppColors.btnColor,
                   minimumSize: const Size(450, 50),
                 ),
                 child: Text(
@@ -79,6 +81,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
+              SizedBox(height: 170)
             ],
           ),
         ),

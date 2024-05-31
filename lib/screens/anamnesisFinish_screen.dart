@@ -1,107 +1,91 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
+import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
+import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
+import 'package:flutter_application_test/CustomizedClasses/text_bubble_display.dart';
+import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
+// Defining the FinishScreen widget as a StatefulWidget
 class FinishScreen extends StatefulWidget {
   @override
   FinishScreenState createState() => FinishScreenState();
 }
 
+// Defining the state for the FinishScreen widget
 class FinishScreenState extends State<FinishScreen> {
-  late String text;
-  Future<void> playAudio(path) async {
-    await audioPlayer.play(AssetSource(path));
-  }
+  String text =
+      ""; // Variable to hold the text for displaying the final message
+  AnamnesisAudioPlayer audioPlayer =
+      AnamnesisAudioPlayer(); // Audio player instance
+  TextForDisplay textString = TextForDisplay(); // Text loader instance
 
-  late AudioPlayer audioPlayer;
-
+  // Overriding the initState method to perform initializations
   @override
   void initState() {
     super.initState();
-    audioPlayer = AudioPlayer();
-    loadQuestionText();
-    playAudio('audio_files/finalMessage.mp3');
+
+    audioPlayer.playAudio(
+        'audio_files/finish.mp3'); // Call function for playing audio file
+
+    // Using Text loader instance to load intro text from the specified path
+    textString
+        .getText('assets/text_strings/finish.txt')
+        .then((String fetchedText) {
+      setState(() {
+        text = fetchedText; // Updating the state with the fetched text
+      });
+    });
   }
 
-  Future<void> loadQuestionText() async {
-    try {
-      String question;
-      question = await rootBundle.loadString('assets/text_strings/finish.txt');
-     setState(() {
-        text = question;
-      });
-    } catch (e) {
-      setState(() {
-        // Set text to an empty string in case of error
-        text = 'It does not work!';
-      });
-    }
-  }
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Finish Screen'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Large square for text
-            Container(
-              width: 600,
-              height: 300,
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      text,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    SizedBox(height: 10), // space between sections
-                   /* Text(
-                      'Dine svar bliver nu sendt videre til din fysioterapeut, som vil læse det igennem, inden du kaldes ind til videre undersøgelse og tests. I mellemtiden kan du finde dig til rette i venteværelset med et magasin og en kop te eller kaffe.',
-                      style: TextStyle(fontSize: 20),
-                    ),*/
-                  ],
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Display the final message text in a bubble
+                BubbleText(text: text),
+
+                SizedBox(height: 60),
+
+                Center(
+                  // Wrapping the text with Center widget
+                  child: Text(
+                    'Tryk på knappen for at afslutte',
+                    style: TextStyle(fontSize: 14),
+                  ),
                 ),
-              ),
+
+                SizedBox(height: 15),
+
+                ElevatedButton(
+                  onPressed: () {
+                    exit(0); // Closing the application if pressed
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.btnColor,
+                    minimumSize: Size(450, 50),
+                  ),
+                  child: Text(
+                    'Afslut',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ],
             ),
+          ),
 
-            SizedBox(height: 30), // Spacer
-
-            Center(
-              // Wrap the text with Center widget
-              child: Text(
-                'Tryk på knappen for at afslutte',
-                style: TextStyle(fontSize: 14),
-              ),
-            ),
-            // Pressable button
-
-            SizedBox(height: 15), // Spacer
-
-            ElevatedButton(
-              onPressed: () {}, // Empty function body
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                minimumSize: Size(450, 50),
-              ),
-              child: Text(
-                'Afslut',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ],
-        ),
+          // Position the logo at the bottom-left of the screen
+          Positioned(
+            left: 8.0,
+            bottom: 0,
+            child: Logo(), // Logo widget
+          ),
+        ],
       ),
     );
   }

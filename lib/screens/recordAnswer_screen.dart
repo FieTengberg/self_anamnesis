@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/CustomizedClasses/text_bubble_display.dart';
 import 'package:flutter_application_test/screens/saveOrRepeat_screen.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:record/record.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioRecorder.dart';
+import 'package:flutter_application_test/CustomizedClasses/anamnesisAudioPlayer.dart';
+import 'package:flutter_application_test/CustomizedClasses/textForDisplay.dart';
+import 'package:flutter_application_test/CustomizedClasses/app_colors.dart';
+import 'package:flutter_application_test/CustomizedClasses/logo_display.dart';
 
+// RecordScreen widget for recording answers to questions
 class RecordScreen extends StatefulWidget {
   final int index;
   RecordScreen({required this.index});
@@ -13,108 +17,87 @@ class RecordScreen extends StatefulWidget {
   _RecordScreenState createState() => _RecordScreenState();
 }
 
-const audioFiles = ['audio_files/question1.mp3', 'audio_files/question2.mp3'];
-const questionText = [
-  'assets/text_strings/question1.txt',
-  'assets/text_strings/question2.txt'
-];
+// State class for the RecordScreen widget
+class _RecordScreenState extends State<RecordScreen>
+    with SingleTickerProviderStateMixin {
+  bool isRecording = false; // Flag to track recording status
+  bool isInitialized = false; // Flag to track initialization status
 
-class _RecordScreenState extends State<RecordScreen> {
-  bool isRecording = false;
-  late AudioPlayer audioPlayer;
-  final recordPlayer = AudioRecorder();
-  String text = ""; // Store question text here
+  String question = ""; // Empty string for the current question to be added
 
-  Future<void> playAudio(path) async {
-    await audioPlayer.play(AssetSource(path));
-  }
+  // Instances for audio player and recorder
+  late AnamnesisAudioPlayer audioPlayer;
+  final recorder = FlutterSoundRecorder();
+  late AnimationController animationController;
+  final AnamnesisAudioRecorder audioRecorder = AnamnesisAudioRecorder();
 
-  Future<void> startRecording(index) async {
-    // Check and request permission if needed
-    if (await recordPlayer.hasPermission()) {
-      // Start recording to file
-      await recordPlayer.start(const RecordConfig(),
-          path: 'answer_files/answer$index.mp3');
-      // ... or to stream
-      final stream = await recordPlayer
-          .startStream(RecordConfig(encoder: AudioEncoder.pcm16bits));
-    }
-  }
+  //Instances of other variables initialized and used later in the code
+  late int questionsAnswered;
+  final int totalQuestions = 7; //fixed number of questions in prototype
+  late double progress;
 
-  Future<void> stopRecording() async {
-    // Stop recording...
-    final path = await recordPlayer.stop();
-    // ... or cancel it (and implicitly remove file/blob).
-    //await recordPlayer.cancel();
-
-    recordPlayer.dispose(); // As always, don't forget this one.
-  }
-
-  Future<void> loadQuestionText() async {
-    try {
-      String question;
-      question = await rootBundle.loadString(questionText[widget.index]);
-      setState(() {
-        text = question;
-      });
-    } catch (e) {
-      setState(() {
-        // Set text to an empty string in case of error
-        text = 'It does not work!';
-      });
-    }
-  }
+  //Initializing widget for fetching question in text
+  TextForDisplay textString = TextForDisplay();
 
   @override
   void initState() {
-    audioPlayer = AudioPlayer();
+    // Initializing animation controller
+    animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    animationController.repeat(reverse: true);
+
     super.initState();
-    loadQuestionText(); // Load question text when screen initializes
-    playAudio(audioFiles[widget.index]);
+
+    // Only initialize recorder if not already initialized
+    if (!isInitialized) {
+      audioRecorder.initRecorder();
+      isInitialized = true; // flag set to true after initialization
+    }
+
+    //Intializing variables for progress bar calculation and other
+    questionsAnswered = widget.index + 1;
+    progress = questionsAnswered / totalQuestions;
+
+    // Initializing audio player and playing current question audio
+    audioPlayer = AnamnesisAudioPlayer();
+    audioPlayer.playAudio(
+        'audio_files/question$questionsAnswered.mp3'); // Call function for playing audio file
+
+    //fetching text for current question
+    textString
+        .getText('assets/text_strings/question$questionsAnswered.txt')
+        .then((String fetchedText) {
+      setState(() {
+        question = fetchedText; // Updating the state with the fetched text
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Record Screen'),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Text: Question
-            Text(
-              text,
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-              textAlign: TextAlign.center, // Align text center
-            ),
-            SizedBox(height: 10), // Spacer
-            // Text: Added explanation
-            /* Text(
-              '1 er ingen smerte og 10 er den værst tænkelige smerte, som du kan forestille dig',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),*/
+            SizedBox(height: 90),
 
-            SizedBox(height: 50), // Spacer
+            // Displaying the question text using BubbleText widget
+            BubbleText(text: question),
 
-            // Large square container with black border
+            SizedBox(height: 65),
+
+            // Large square container with buttons
             Container(
               width: 800,
-              height: 250,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-              ),
+              height: 170,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Green square for play symbol
+                      // Green square for recording answer
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -122,18 +105,25 @@ class _RecordScreenState extends State<RecordScreen> {
                             InkWell(
                               onTap: isRecording
                                   ? null // Disable onTap when recording
-                                  : () {
+                                  : () async {
+                                      //stop and dispose question reading if recording started
+                                      await audioPlayer.stop();
+                                      await audioPlayer.dispose();
+
+                                      //start recording answer
+                                      await audioRecorder.startRecording();
+
+                                      //update state
                                       setState(() {
                                         isRecording = true;
-                                        startRecording(widget.index);
                                       });
                                     },
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: 120,
+                                height: 120,
                                 color: isRecording
-                                    ? Colors.green.withOpacity(0.5)
-                                    : Colors.green,
+                                    ? AppColors.playBtnColor.withOpacity(0.5)
+                                    : AppColors.playBtnColor,
                                 child: Icon(
                                   Icons.play_arrow,
                                   size: 60,
@@ -141,11 +131,11 @@ class _RecordScreenState extends State<RecordScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 5), // Spacer
+                            SizedBox(height: 5),
                             Text(
                               'Start',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 color: isRecording ? Colors.grey : Colors.black,
                               ),
                             ),
@@ -153,7 +143,7 @@ class _RecordScreenState extends State<RecordScreen> {
                         ),
                       ),
 
-                      // Red square for stop button
+                      // Red square for stopping recording
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -161,25 +151,28 @@ class _RecordScreenState extends State<RecordScreen> {
                             InkWell(
                               onTap: !isRecording
                                   ? null // Disable onTap when not recording
-                                  : () {
+                                  : () async {
+                                      await audioRecorder
+                                          .stopRecording(questionsAnswered);
                                       setState(() {
                                         isRecording = false;
                                       });
-                                      // Navigate to the other screen
+                                      // Navigate to SaveOrRepeatScreen
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 SaveOrRepeatScreen(
-                                                    index: widget.index)),
+                                                    index: widget.index,
+                                                    questionString: question)),
                                       );
                                     },
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: 120,
+                                height: 120,
                                 color: isRecording
-                                    ? Colors.red
-                                    : Colors.red.withOpacity(0.5),
+                                    ? AppColors.stopBtnColor
+                                    : AppColors.stopBtnColor.withOpacity(0.5),
                                 child: Icon(
                                   Icons.stop,
                                   size: 60,
@@ -187,11 +180,11 @@ class _RecordScreenState extends State<RecordScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 5), // Spacer
+                            SizedBox(height: 5),
                             Text(
                               'Stop',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 color: isRecording ? Colors.black : Colors.grey,
                               ),
                             ),
@@ -200,45 +193,72 @@ class _RecordScreenState extends State<RecordScreen> {
                       ),
                     ],
                   ),
-                  if (isRecording) // Show message only when recording is in progress
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Optagelsen er igang', // Your message here
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black, // Customize the color as needed
-                        ),
-                      ),
-                    ),
                 ],
               ),
             ),
 
-            SizedBox(height: 60), // Spacer
+            // Blinking text container indicating recording active
+            Container(
+              height:
+                  50.0, // Fixed space reserved for the text to appear when recording
+              child: isRecording
+                  ? FadeTransition(
+                      opacity: animationController,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Optagelse igang',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    )
+                  : SizedBox(), // Empty SizedBox when not recording
+            ),
 
-            // Progress indicator
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            // Progress indicator and logo
+            Stack(
+              alignment: Alignment.bottomLeft,
               children: [
-                // Progress bar
                 Container(
-                  width: 450,
-                  height: 10,
-                  child: LinearProgressIndicator(
-                    value:
-                        0.5, // Change this value dynamically based on user's progress
-                    backgroundColor: const Color.fromARGB(255, 223, 220, 220),
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Logo(), //logo
+                      SizedBox(
+                          width: 20), // Spacer between logo and progress bar
+
+                      // Progress bar indicating user's progress
+                      Container(
+                        width: 450,
+                        height: 12,
+                        child: LinearProgressIndicator(
+                          value:
+                              progress, // value changes dynamically based on user's progress
+                          backgroundColor:
+                              const Color.fromARGB(255, 223, 220, 220),
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(AppColors.btnColor),
+                        ),
+                      ),
+
+                      SizedBox(
+                          width: 20), // Spacer between progress bar and text
+
+                      // Text displaying progress
+                      Text(
+                        'Du er nået til $questionsAnswered ud af $totalQuestions spørgsmål', // Changes dynamically
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      ),
+                      SizedBox(
+                          width: 200), // Spacer between text and right border
+                    ],
                   ),
-                ),
-
-                SizedBox(width: 20), // Spacer between progress bar and text
-
-                // Text displaying progress
-                Text(
-                  'Du har svaret på 5 ud af 10 spørgsmål', // Change this text dynamically based on user's progress
-                  style: TextStyle(color: Colors.grey, fontSize: 18),
                 ),
               ],
             ),
